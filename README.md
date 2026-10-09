@@ -29,7 +29,13 @@
 
 ## 🚀 Problem Statement & Vision
 
-Micro-entrepreneurs and rural small business owners in India face severe information asymmetry when discovering, checking eligibility for, and applying to government loans, subsidies, and schemes (e.g., PMEGP, PM SVANidhi, Mudra Loans, CGTMSE). Existing portals are complex, monolingual, document-heavy, and lack personalized step-by-step guidance.
+The canonical project definition is maintained in [`docs/PROJECT_CANONICAL_SPEC.md`](docs/PROJECT_CANONICAL_SPEC.md). All AI tools and IDE agents must read it before analyzing or modifying this repository.
+
+**Main problem statement:** There is no unified digital platform tailored to rural entrepreneurs that combines sales, payments, logistics, and customer support. This fragmentation restricts market access and sustainable scaling of rural businesses.
+
+**Assigned sub-problem:** Rural entrepreneurs do not know which government schemes, marketplaces, or digital tools fit their business.
+
+VyaparMarg addresses this assigned sub-problem through a **multilingual Rural Business Assistant** delivered as a real Android mobile application and a browser extension, backed by a shared API, database, recommendation engine, and AI layer.
 
 **VyaparMarg** addresses this challenge through a **hybrid AI + Deterministic Rule Engine**:
 1. **AI Assistant Layer**: Understands natural conversational inputs in regional languages (Marathi, Hindi, English), extracts structured business profile context, and translates requirements into simple terms.
