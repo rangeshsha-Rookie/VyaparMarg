@@ -4,7 +4,7 @@ import { ActivityIndicator, Pressable, SafeAreaView, StyleSheet, Text, TextInput
 import { supabase } from "./src/lib/supabase";
 
 type Profile = { business_name: string | null; business_type: string; state: string; district: string | null };
-const apiBaseUrl = process.env.EXPO_PUBLIC_API_BASE_URL ?? "http://127.0.0.1:8000/api/v1";
+const apiBaseUrl = process.env.EXPO_PUBLIC_API_BASE_URL ?? "http://192.168.0.102:8000/api/v1";
 
 export default function App() {
   const [email, setEmail] = useState("");
