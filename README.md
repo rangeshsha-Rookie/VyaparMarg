@@ -46,7 +46,8 @@ VyaparMarg addresses this assigned sub-problem through a **multilingual Rural Bu
 
 ## 🎨 Visual Showcase & Previews
 
-### 1. Mobile Assistant Interface
+### 1. Mobile Assistant Native Interface
+![Real Mobile Assistant Preview](./docs/assets/real_mobile_app_preview.jpg)
 ![Mobile App Preview](./docs/assets/mobile_app_preview.jpg)
 
 ### 2. Hybrid AI + Eligibility Engine Workflow
