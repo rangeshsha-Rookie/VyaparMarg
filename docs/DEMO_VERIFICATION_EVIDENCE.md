@@ -19,3 +19,17 @@
 - **Phases 1 to 11**: Implemented, verified, and passing tests with 0 failures.
 - **Hybrid Scope**: Native Android Mobile App, Browser Extension, Shared FastAPI/Supabase backend all integrated.
 - **Team Boundaries**: Student 2 (Shivam — Logistics) and Student 3 (Shruti — Dashboard) contracts strictly defined and demonstrated.
+
+## Live Deployed Web Application Evidence (Vercel & Render)
+
+Live captures taken directly from the production deployment at **https://vyapar-marg.vercel.app/**:
+
+| Stage | Asset Path | Verified Features |
+| :--- | :--- | :--- |
+| **1. Authentication & 1-Click Demo** | `docs/assets/deployed_01_login_mode.png` | Guaranteed Supabase client initialization + 1-Click Savita Tai Demo Mode bypass button |
+| **2. Multilingual AI Assistant** | `docs/assets/deployed_02_dashboard_assistant.png` | Marathi greeting, voice input prompt, audio speech synthesis (`🔈 ऐका (Listen)`) |
+| **3. Scheme Recommendations** | `docs/assets/deployed_03_schemes_recommendations.png` | PMEGP (35% Subsidy, 95% Match), PMFME ODOP (92% Match), CMEGP (90% Match) |
+| **4. Recommended Marketplaces** | `docs/assets/deployed_04_marketplaces_ondc_gem.png` | ONDC (1-3% fee), GeM (0% fee), Amazon Karigar, IndiaMART B2B |
+| **5. Digital Business Tools** | `docs/assets/deployed_05_digital_tools.png` | Khatabook Udhar ledger, Vyapar App billing, Google Pay for Business, Shiprocket |
+| **6. Portal Guides** | `docs/assets/deployed_06_portal_guides.png` | Aaple Sarkar, MahaDBT, KVIC PMEGP, and Udyam MSME step-by-step guides |
+| **7. Rural Growth Dashboard** | `docs/assets/deployed_07_growth_dashboard.png` | ₹17.5 Lakh unlocked subsidy pipeline, 78/100 digital readiness score, milestone suggestions |

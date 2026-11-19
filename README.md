@@ -63,6 +63,25 @@ The Render service is hosted on the free tier and may take 30–60 seconds to re
 ![System Architecture Detailed](./docs/assets/system_architecture_detailed.svg)
 *Canonical Database Seeds (Tier 1) $\rightarrow$ Shared FastAPI Engine (Tier 2) $\rightarrow$ Native Mobile & Extension Caches (Tier 3).*
 
+### 6. Live Production Deployed Web Application (Vercel & Render)
+
+**Public Web URL:** [https://vyapar-marg.vercel.app/](https://vyapar-marg.vercel.app/) | **FastAPI Backend:** [https://vyaparmarg.onrender.com/](https://vyaparmarg.onrender.com/)
+
+| 1. Authentication & 1-Click Demo Mode | 2. Multilingual AI Assistant (Marathi / Hindi / English) |
+|:---:|:---:|
+| <img src="./docs/assets/deployed_01_login_mode.png" width="480" alt="Login & Demo Mode"/> | <img src="./docs/assets/deployed_02_dashboard_assistant.png" width="480" alt="AI Assistant"/> |
+| *Guaranteed Supabase Auth + 1-Click Savita Tai Demo Access* | *Multilingual audio interface with Marathi & Hindi TTS* |
+
+| 3. Deterministic Scheme Recommendations | 4. Marketplaces (ONDC & GeM) |
+|:---:|:---:|
+| <img src="./docs/assets/deployed_03_schemes_recommendations.png" width="480" alt="Scheme Recommendations"/> | <img src="./docs/assets/deployed_04_marketplaces_ondc_gem.png" width="480" alt="Marketplaces"/> |
+| *PMEGP 35% Capital Subsidy (95% Match) & PMFME ODOP* | *Low-fee open e-commerce protocol + Government MSME procurement* |
+
+| 5. Digital MSME Tools Stack | 6. Rural Growth Dashboard |
+|:---:|:---:|
+| <img src="./docs/assets/deployed_05_digital_tools.png" width="480" alt="Digital Tools"/> | <img src="./docs/assets/deployed_07_growth_dashboard.png" width="480" alt="Growth Dashboard"/> |
+| *Khatabook Udhar ledger, Vyapar billing & Google Pay for Business* | *₹17.5 Lakh unlocked subsidies + 78/100 Digital Readiness Score* |
+
 ---
 
 ## 🏗️ Architecture & Component Breakdown
