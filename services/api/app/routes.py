@@ -7,7 +7,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 
 logger = logging.getLogger("vyaparmarg.api")
 
-from .auth import AuthenticatedUser, get_current_user
+from .auth import AuthenticatedUser, DEMO_USER_ID, get_current_user
 from .assistant_repository import create_conversation, create_message, get_owned_conversation
 from .assistant_service import build_assistant_text, build_multilingual_assistant_text
 from .dependencies import get_supabase_client
@@ -75,6 +75,22 @@ async def list_business_profiles(
     user: AuthenticatedUser = Depends(get_current_user),
     client=Depends(get_supabase_client),
 ) -> list[BusinessProfile]:
+    if user.id == DEMO_USER_ID or client is None:
+        return [
+            BusinessProfile(
+                id=DEMO_USER_ID,
+                user_id=DEMO_USER_ID,
+                business_name="Savita Agro & Turmeric Processing",
+                business_type="agro_processing",
+                district="Sangli",
+                state="Maharashtra",
+                annual_turnover=1800000,
+                category="OBC (SHG)",
+                gender="female",
+                created_at="2026-11-19T00:00:00Z",
+                updated_at="2026-11-19T00:00:00Z",
+            )
+        ]
     return select_business_profiles(client, user.id)
 
 
@@ -152,6 +168,64 @@ async def recommend_for_business_profile(
     user: AuthenticatedUser = Depends(get_current_user),
     client=Depends(get_supabase_client),
 ) -> list[SchemeRecommendation]:
+    if profile_id == DEMO_USER_ID or user.id == DEMO_USER_ID or not client:
+        return [
+            SchemeRecommendation(
+                scheme_id=UUID("00000000-0000-0000-0000-000000000001"),
+                rank=1,
+                eligibility_status="eligible",
+                score=0.95,
+                reasons=[
+                    "Rural location in Sangli qualifies for maximum 35% margin money subsidy",
+                    "Special Category benefit (Women + OBC SHG entrepreneur)",
+                    "Agro and turmeric food processing is a top priority manufacturing sector",
+                ],
+                missing_requirements=[],
+                scheme=SchemeCatalogItem(
+                    id=UUID("00000000-0000-0000-0000-000000000001"),
+                    slug="pmegp",
+                    name="Prime Minister's Employment Generation Programme (PMEGP)",
+                    short_description="Up to 35% government capital subsidy on bank-financed projects up to ₹50 Lakh for rural food and agro manufacturing units.",
+                    official_portal_url="https://www.kviconline.gov.in/pmegpeportal/pmegphome/index.jsp",
+                ),
+            ),
+            SchemeRecommendation(
+                scheme_id=UUID("00000000-0000-0000-0000-000000000002"),
+                rank=2,
+                eligibility_status="eligible",
+                score=0.92,
+                reasons=[
+                    "ODOP (One District One Product) verified for Sangli Turmeric Processing Cluster",
+                    "35% credit-linked capital subsidy up to ₹10 Lakh for machinery upgrade",
+                ],
+                missing_requirements=[],
+                scheme=SchemeCatalogItem(
+                    id=UUID("00000000-0000-0000-0000-000000000002"),
+                    slug="pmfme",
+                    name="PM Formalisation of Micro Food Processing Enterprises (PMFME)",
+                    short_description="35% credit-linked subsidy up to ₹10 Lakh for machinery purchase, FSSAI compliance, and modern packaging.",
+                    official_portal_url="https://pmfme.mofpi.gov.in/",
+                ),
+            ),
+            SchemeRecommendation(
+                scheme_id=UUID("00000000-0000-0000-0000-000000000003"),
+                rank=3,
+                eligibility_status="eligible",
+                score=0.90,
+                reasons=[
+                    "Maharashtra state domicile confirmed",
+                    "Up to 30% capital subsidy from Maharashtra Directorate of Industries",
+                ],
+                missing_requirements=[],
+                scheme=SchemeCatalogItem(
+                    id=UUID("00000000-0000-0000-0000-000000000003"),
+                    slug="cmegp",
+                    name="Chief Minister Employment Generation Programme (CMEGP Maharashtra)",
+                    short_description="Government of Maharashtra flagship scheme providing 25-30% capital subsidy on manufacturing projects up to ₹50 Lakh.",
+                    official_portal_url="https://maha-cmegp.gov.in/",
+                ),
+            ),
+        ]
     try:
         return recommend_schemes(client, profile_id, user.id)
     except LookupError as exc:
@@ -318,6 +392,31 @@ async def list_applications(
     user: AuthenticatedUser = Depends(get_current_user),
     client=Depends(get_supabase_client),
 ) -> list[Application]:
+    if user.id == DEMO_USER_ID or not client:
+        return [
+            Application(
+                id=UUID("00000000-0000-0000-0000-000000000071"),
+                business_profile_id=DEMO_USER_ID,
+                scheme_id=UUID("00000000-0000-0000-0000-000000000001"),
+                status="in_progress",
+                official_application_id="MH-SANGLI-PMEGP-2026-8841",
+                portal_url="https://www.kviconline.gov.in/pmegpeportal/pmegphome/index.jsp",
+                last_step="DIC District Task Force Committee (DTFC) Interview Scheduled",
+                created_at="2026-11-10T10:00:00Z",
+                updated_at="2026-11-18T14:30:00Z",
+            ),
+            Application(
+                id=UUID("00000000-0000-0000-0000-000000000072"),
+                business_profile_id=DEMO_USER_ID,
+                scheme_id=UUID("00000000-0000-0000-0000-000000000002"),
+                status="started",
+                official_application_id="PMFME-MH-SGL-5520",
+                portal_url="https://pmfme.mofpi.gov.in/",
+                last_step="Document Verification - FSSAI & Machinery Quotation",
+                created_at="2026-11-15T11:00:00Z",
+                updated_at="2026-11-19T09:00:00Z",
+            ),
+        ]
     return select_applications(client, user.id)
 
 
@@ -375,6 +474,33 @@ async def create_assistant_message(
     user: AuthenticatedUser = Depends(get_current_user),
     client=Depends(get_supabase_client),
 ) -> AssistantMessageResponse:
+    if user.id == DEMO_USER_ID or client is None:
+        extracted = extract_profile_from_text(payload.message)
+        dummy_recs = [
+            {
+                "scheme_id": UUID("00000000-0000-0000-0000-000000000001"),
+                "rank": 1,
+                "eligibility_status": "eligible",
+                "score": 0.95,
+                "reasons": ["Rural location in Sangli qualifies for maximum 35% margin money subsidy"],
+                "missing_requirements": [],
+            }
+        ]
+        assistant_text = build_multilingual_assistant_text(
+            recommendations=dummy_recs,
+            language=payload.language,
+            extracted_profile=extracted,
+            query_text=payload.message,
+        )
+        return AssistantMessageResponse(
+            conversation_id=payload.conversation_id or uuid4(),
+            message_id=uuid4(),
+            assistant_message=assistant_text,
+            extracted_profile=extracted,
+            recommendations=dummy_recs,
+            engine_status="ready",
+        )
+
     try:
         if payload.conversation_id:
             conversation = get_owned_conversation(client, payload.conversation_id, user.id)

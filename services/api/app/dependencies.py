@@ -9,4 +9,6 @@ from .config import create_user_client
 def get_supabase_client(
     user: AuthenticatedUser = Depends(get_current_user),
 ):
+    if user.access_token.startswith("demo-token"):
+        return None
     return create_user_client(user.access_token)
