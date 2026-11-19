@@ -1,4 +1,15 @@
-const apiBaseUrl = (import.meta.env.VITE_API_BASE_URL as string | undefined) ?? "http://localhost:8000/api/v1";
+const isBrowser = typeof window !== "undefined";
+const isLocalhost =
+  isBrowser &&
+  (window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1" ||
+    window.location.hostname === "0.0.0.0");
+
+const defaultApiUrl = isLocalhost
+  ? "http://localhost:8000/api/v1"
+  : "https://vyaparmarg.onrender.com/api/v1";
+
+const apiBaseUrl = (import.meta.env.VITE_API_BASE_URL as string | undefined) || defaultApiUrl;
 
 export type SchemeRecommendation = {
   scheme_id: string;

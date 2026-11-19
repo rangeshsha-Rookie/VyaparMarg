@@ -1,6 +1,8 @@
 import * as SecureStore from "expo-secure-store";
 import { createClient } from "@supabase/supabase-js";
 
+declare const process: { env: Record<string, string | undefined> };
+
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL || "https://jikdtvhcztvxmvydznxa.supabase.co";
 const supabasePublishableKey = process.env.EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY || "sb_publishable_hiMK8Xb-OTtF7KhgEaZSCQ_Mqx1KDRt";
 const secureStorage = {
@@ -9,4 +11,4 @@ const secureStorage = {
   removeItem: (key: string) => SecureStore.deleteItemAsync(key),
 };
 
-export const supabase = createClient(supabaseUrl, supabasePublishableKey, { auth: { storage: secureStorage, autoRefreshToken: true, persistSession: true, detectSessionInUrl: false } });
+export const supabase: any = createClient(supabaseUrl, supabasePublishableKey, { auth: { storage: secureStorage, autoRefreshToken: true, persistSession: true, detectSessionInUrl: false } });

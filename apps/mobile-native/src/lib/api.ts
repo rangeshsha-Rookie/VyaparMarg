@@ -1,5 +1,7 @@
 // VyaparMarg Mobile API Client
 
+declare const process: { env: Record<string, string | undefined> };
+
 const API_BASE_URL =
   process.env.EXPO_PUBLIC_API_BASE_URL ||
   process.env.EXPO_PUBLIC_API_URL ||

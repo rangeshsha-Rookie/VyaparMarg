@@ -2,6 +2,7 @@ from uuid import UUID, uuid4
 from fastapi.testclient import TestClient
 
 from services.api.app.auth import AuthenticatedUser, get_current_user
+from services.api.app.dependencies import get_supabase_client
 from services.api.app.main import app
 from services.schemes.evaluator import evaluate_scheme_advanced, calculate_subsidy_percentage
 from services.documents.checklist_engine import generate_document_checklist
@@ -187,6 +188,7 @@ def test_marketplaces_and_portals_api_endpoints() -> None:
         id=user_id,
         access_token="test-token",
     )
+    app.dependency_overrides[get_supabase_client] = lambda: None
 
     try:
         # 1. Marketplaces endpoint

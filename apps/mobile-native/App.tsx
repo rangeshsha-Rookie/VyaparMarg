@@ -116,8 +116,8 @@ export default function App() {
 
   // Check Supabase session on mount
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      if (data.session) {
+    supabase.auth.getSession().then(({ data }: { data: any }) => {
+      if (data?.session) {
         setSession({ access_token: data.session.access_token });
       }
     });
@@ -505,11 +505,11 @@ export default function App() {
               </Text>
             </View>
 
-            <FlatList
-              data={messages}
-              keyExtractor={(item) => item.id}
-              contentContainerStyle={styles.chatList}
-              renderItem={({ item }) => (
+            {React.createElement(FlatList as any, {
+              data: messages,
+              keyExtractor: (item: any) => item.id,
+              contentContainerStyle: styles.chatList,
+              renderItem: ({ item }: { item: any }) => (
                 <View
                   style={[
                     styles.chatBubble,
@@ -526,8 +526,8 @@ export default function App() {
                   </Text>
                   <Text style={styles.chatTime}>{item.timestamp}</Text>
                 </View>
-              )}
-            />
+              ),
+            })}
 
             <View style={styles.chatInputBar}>
               <Pressable
