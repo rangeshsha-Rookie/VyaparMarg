@@ -134,6 +134,125 @@ class AssistantMessageResponse(BaseModel):
     engine_status: Literal["not_connected", "ready"]
 
 
+# New Models for Marketplaces & Digital Tools
+class MarketplaceItem(BaseModel):
+    id: str
+    slug: str
+    name: str
+    category: str
+    description: str
+    target_sectors: list[str]
+    onboarding_url: str
+    commission_model: str
+    benefits: list[str]
+    required_documents: list[str]
+    active: bool = True
+
+
+class MarketplaceRecommendation(BaseModel):
+    marketplace: MarketplaceItem
+    score: float
+    reasons: list[str]
+    onboarding_url: str
+
+
+class DigitalToolItem(BaseModel):
+    id: str
+    slug: str
+    name: str
+    tool_type: str
+    pricing_tier: str
+    description: str
+    best_for: str
+    official_url: str
+    supported_languages: list[str]
+    features: list[str]
+    offline_support: bool
+    active: bool = True
+
+
+class DigitalToolRecommendation(BaseModel):
+    tool: DigitalToolItem
+    score: float
+    reasons: list[str]
+    official_url: str
+
+
+# Document Checklist
+class DocumentChecklistItem(BaseModel):
+    key: str
+    name_en: str
+    name_mr: str
+    issuing_portal: str
+    authority: str
+    help_text: str
+    mandatory: bool
+    status: str
+    is_ready: bool
+
+
+# Portal Guidance
+class PortalGuideStep(BaseModel):
+    step_number: int
+    title: str
+    description: str
+    tip: str | None = None
+
+
+class PortalGuideItem(BaseModel):
+    portal_slug: str
+    portal_name: str
+    official_url: str
+    department: str
+    state: str
+    description: str
+    steps: list[PortalGuideStep]
+    prerequisites: list[str]
+    helpdesk_contact: str | None = None
+
+
+# Student 2 Integration: Logistics
+class LogisticsQuoteRequest(BaseModel):
+    origin_district: str
+    destination_district: str
+    weight_kg: float = Field(gt=0)
+    cargo_type: str = "general"
+
+
+class LogisticsCarrierQuote(BaseModel):
+    carrier_name: str
+    vehicle_type: str
+    capacity_kg: float
+    estimated_cost_inr: float
+    estimated_delivery_hours: int
+    best_for: str
+    rural_doorstep_pickup: bool
+
+
+class LogisticsQuoteResponse(BaseModel):
+    origin_district: str
+    destination_district: str
+    weight_kg: float
+    cargo_type: str
+    estimated_distance_km: float
+    available_carriers: list[LogisticsCarrierQuote]
+    recommended_carrier: str
+    integrated_module: str
+
+
+# Student 3 Integration: Growth Dashboard
+class GrowthDashboardResponse(BaseModel):
+    business_name: str
+    district: str
+    annual_turnover_inr: float
+    digital_readiness_score: int
+    readiness_factors: list[str]
+    potential_subsidy_inr: float
+    active_applications_count: int
+    suggested_actions: list[str]
+    integrated_module: str
+
+
 def new_timestamp() -> datetime:
     return datetime.now(timezone.utc)
 

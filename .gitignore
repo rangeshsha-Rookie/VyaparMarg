@@ -15,5 +15,7 @@ coverage/
 *.log
 .vscode/settings.json
 supabase/.temp/
+apps/extension/dist/
+data/staging/
 
 ~$*

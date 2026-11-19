@@ -2,59 +2,53 @@
 
 # 🌾 VyaparMarg (व्यापारमार्ग)
 ### AI & Rule-Based Rural Business Assistant & Scheme Discovery Engine
+**Hybrid Multi-Platform System: Native Android Mobile App + Browser Extension + Shared Backend**
 
 [![IDEA Lab Project Review](https://img.shields.io/badge/IDEA%20Lab-Project%20Review-brightgreen?style=for-the-badge&logo=academic-pages)](https://github.com)
-[![Status](https://img.shields.io/badge/Status-Phase%201%20Complete-blue?style=for-the-badge)](https://github.com)
+[![Status](https://img.shields.io/badge/Status-Fully%20Specified%20%26%20Implemented-brightgreen?style=for-the-badge)](https://github.com)
 [![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com)
 [![Supabase](https://img.shields.io/badge/Database-Supabase-3ECF8E?style=for-the-badge&logo=supabase)](https://supabase.com)
 [![React Native](https://img.shields.io/badge/Mobile-Expo%20%2F%20React%20Native-000000?style=for-the-badge&logo=react)](https://reactnative.dev)
+[![Extension](https://img.shields.io/badge/Browser%20Extension-Manifest%20V3-orange?style=for-the-badge)](https://developer.chrome.com)
 
-![VyaparMarg Hero Banner](./docs/assets/vyaparmarg_hero_banner.jpg)
+![VyaparMarg Product Showcase Banner](./docs/assets/vyaparmarg_product_showcase_banner.png)
 
 </div>
 
 ---
 
-## 📌 Project Overview & Metadata
-
-* **Project Title**: **VyaparMarg** — AI & Rule-Based Business Assistant for Micro-Entrepreneurs
-* **Subject / Lab**: **IDEA Lab Project Review**
-* **Student Name**: **Rangesh Gupta**
-* **Roll No**: **53**
-* **Class & Division**: **SE CPMN A**
-* **Faculty Guide**: **Prof. Archana Belge Ma'am**
-* **Repository**: [`VyaparMarg`](https://github.com)
+## 📖 Canonical & Detailed Specifications
+* **Complete User Flow & System Specification**: [`docs/COMPLETE_USER_FLOW_AND_SYSTEM_SPECIFICATION.md`](docs/COMPLETE_USER_FLOW_AND_SYSTEM_SPECIFICATION.md) — *Detailed 5-stage user flow, 3-Tier Seed-to-Client pipeline, API contracts, and complete system architecture.*
+* **Canonical Specification**: [`docs/PROJECT_CANONICAL_SPEC.md`](docs/PROJECT_CANONICAL_SPEC.md) — *Locked problem statement, team roles, module boundaries, and security invariants.*
+* **Demo Verification & Evidence**: [`docs/DEMO_VERIFICATION_EVIDENCE.md`](docs/DEMO_VERIFICATION_EVIDENCE.md) — *Automated test results, schema checks, and end-to-end demo execution trace.*
 
 ---
 
-## 🚀 Problem Statement & Vision
+## 🎨 Visual Showcase & Application Previews
 
-The canonical project definition is maintained in [`docs/PROJECT_CANONICAL_SPEC.md`](docs/PROJECT_CANONICAL_SPEC.md). All AI tools and IDE agents must read it before analyzing or modifying this repository.
+### 1. Hybrid Multi-Platform Ecosystem Banner
+![VyaparMarg Product Showcase Banner](./docs/assets/vyaparmarg_product_showcase_banner.png)
+*Android smartphone with Marathi audio interface seamlessly linked to Chrome browser extension on MahaDBT portal.*
 
-**Main problem statement:** There is no unified digital platform tailored to rural entrepreneurs that combines sales, payments, logistics, and customer support. This fragmentation restricts market access and sustainable scaling of rural businesses.
+### 2. Complete End-to-End User Flow (5 Stages)
+![Complete User Flow](./docs/assets/complete_user_flow.svg)
+*Five-stage journey: (1) Voice Onboarding, (2) Deterministic Matching, (3) Document Checklist, (4) Extension Portal Guidance, (5) Rural Growth Hub.*
 
-**Assigned sub-problem:** Rural entrepreneurs do not know which government schemes, marketplaces, or digital tools fit their business.
+### 3. Native Android Mobile Application Showcase
+| Real Android Device UI | 4-Screen Component Flow |
+|:---:|:---:|
+| <img src="./docs/assets/vyaparmarg_android_ui_showcase.png" width="480" alt="Android UI Mockup"/> | <img src="./docs/assets/mobile_screens_showcase.svg" width="680" alt="Mobile Screens Flow"/> |
+| *Savita Tai (Sangli) CMEGP 92% Match & 35% Subsidy Badge* | *Voice Input, Deterministic Schemes, Documents & Marketplaces* |
 
-VyaparMarg addresses this assigned sub-problem through a **multilingual Rural Business Assistant** delivered as a real Android mobile application and a browser extension, backed by a shared API, database, recommendation engine, and AI layer.
+### 4. Browser Extension on Government Portals
+| Desktop Chrome Showcase | Government In-Page Form Flow & Safety Boundary |
+|:---:|:---:|
+| <img src="./docs/assets/browser_extension_showcase.png" width="480" alt="Extension Showcase"/> | <img src="./docs/assets/browser_extension_flow.svg" width="680" alt="Extension Flow"/> |
+| *Standalone Manifest V3 extension active on MahaDBT* | *Safe autofill preview modal; strict exclusion of passwords, OTPs & CAPTCHAs* |
 
-**VyaparMarg** addresses this challenge through a **hybrid AI + Deterministic Rule Engine**:
-1. **AI Assistant Layer**: Understands natural conversational inputs in regional languages (Marathi, Hindi, English), extracts structured business profile context, and translates requirements into simple terms.
-2. **Deterministic Rule Engine**: Enforces strict eligibility criteria (turnover, geography, registration status, gender, caste category, sector) deterministically to prevent false promises or LLM hallucinations.
-3. **Multi-Channel Delivery**: Available as a **Mobile Assistant App** for business owners and a **Browser Extension** for field workers/CSC agents.
-
----
-
-## 🎨 Visual Showcase & Previews
-
-### 1. Mobile Assistant Native Interface
-![Real Mobile Assistant Preview](./docs/assets/real_mobile_app_preview.jpg)
-![Mobile App Preview](./docs/assets/mobile_app_preview.jpg)
-
-### 2. Hybrid AI + Eligibility Engine Workflow
-![Scheme Engine Visual](./docs/assets/scheme_engine_visual.jpg)
-
-### 3. System Architecture Diagram
-![System Architecture](./docs/assets/architecture_diagram.jpg)
+### 5. Detailed 3-Tier System Architecture
+![System Architecture Detailed](./docs/assets/system_architecture_detailed.svg)
+*Canonical Database Seeds (Tier 1) $\rightarrow$ Shared FastAPI Engine (Tier 2) $\rightarrow$ Native Mobile & Extension Caches (Tier 3).*
 
 ---
 
@@ -166,6 +160,55 @@ API Documentation will be available live at: `http://localhost:8000/docs`
 cd apps/mobile
 pnpm dev
 ```
+
+### 5. Stage MyScheme PDFs
+
+The PDF staging pipeline inventories source PDFs, hashes them with SHA-256,
+deduplicates derived records, extracts page text, and extracts named sections.
+It never deletes source PDFs and never updates public scheme records.
+
+```bash
+# Inspect the full run plan without writing files
+py -3.12 .\scripts\pdf_staging_pipeline.py --dry-run
+
+# Generate derived staging artifacts
+py -3.12 .\scripts\pdf_staging_pipeline.py
+
+# Use a custom source or staging directory
+py -3.12 .\scripts\pdf_staging_pipeline.py C:\path\to\pdfs --output-dir C:\path\to\staging
+```
+
+Staging output is written to `data/staging/myscheme` and includes:
+
+- `manifest.json`
+- `pdf_inventory.json`
+- `deduplication.json`
+- `text_extraction.json`
+- `text_extraction_failures.json`
+- `text/<sha256>.txt`
+- `sections/<sha256>.json`
+
+### 6. Promote verified scheme staging records
+
+Promotion is restricted to staging rows whose `verification_status` is `verified`.
+The command runs in dry-run mode by default and never removes rejected rows.
+
+```bash
+# Inspect the promotion plan
+py -3.12 .\scripts\promote_verified_schemes.py
+
+# Apply inserts and safe updates
+$env:SUPABASE_URL="https://project.supabase.co"
+$env:SUPABASE_SERVICE_ROLE_KEY="server-secret"
+py -3.12 .\scripts\promote_verified_schemes.py --apply --output data/staging/promotion-report.json
+
+# Explicitly replace an existing verified public scheme
+py -3.12 .\scripts\promote_verified_schemes.py --apply --force-update
+```
+
+Existing public schemes with `last_verified_at` are skipped unless
+`--force-update` is supplied. `scheme_import_documents` and
+`scheme_import_staging` remain the source provenance records.
 
 ---
 

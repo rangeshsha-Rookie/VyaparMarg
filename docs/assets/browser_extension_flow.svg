@@ -1,0 +1,213 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900">
+  <defs>
+    <linearGradient id="chromeHeader" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2d3748" />
+      <stop offset="100%" stop-color="#1a202c" />
+    </linearGradient>
+    <linearGradient id="portalGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#9a3412" />
+      <stop offset="100%" stop-color="#c2410c" />
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.35" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1440" height="900" fill="#0f172a" />
+
+  <!-- Title Header -->
+  <text x="720" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="26" font-weight="800" fill="#ffffff" text-anchor="middle">🌐 VyaparMarg Browser Extension — Government Portal Assistance Flow</text>
+  <text x="720" y="72" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#94a3b8" text-anchor="middle">Safe In-Page Form Guidance, Cross-Platform Profile Sync, and Zero Credential Access Invariant</text>
+
+  <!-- Browser Window Frame -->
+  <g transform="translate(60, 95)" filter="url(#shadow)">
+    <!-- Window Outer Shell -->
+    <rect width="1320" height="740" rx="12" fill="#ffffff" stroke="#334155" stroke-width="2" />
+    
+    <!-- Chrome Title Bar & Tabs -->
+    <rect width="1320" height="42" rx="12" fill="url(#chromeHeader)" />
+    <rect y="32" width="1320" height="10" fill="url(#chromeHeader)" />
+    <!-- Window Controls -->
+    <circle cx="25" cy="21" r="6" fill="#ef4444" />
+    <circle cx="45" cy="21" r="6" fill="#f59e0b" />
+    <circle cx="65" cy="21" r="6" fill="#10b981" />
+    <!-- Active Tab -->
+    <rect x="95" y="10" width="280" height="32" rx="8" fill="#1e293b" />
+    <text x="115" y="30" font-family="sans-serif" font-size="11.5" font-weight="600" fill="#f8fafc">🏛️ महाडीबीटी पोर्टल | MahaDBT Portal</text>
+
+    <!-- Address Bar -->
+    <rect y="42" width="1320" height="46" fill="#1e293b" stroke="#334155" stroke-width="1" />
+    <rect x="120" y="50" width="1020" height="30" rx="15" fill="#0f172a" stroke="#475569" />
+    <text x="145" y="70" font-family="monospace" font-size="12" fill="#22c55e">🔒 https://</text>
+    <text x="210" y="70" font-family="monospace" font-size="12" fill="#e2e8f0">mahadbt.maharashtra.gov.in/scheme/cmegp/application-form</text>
+
+    <!-- Extension Icon in Browser Bar -->
+    <rect x="1160" y="49" width="32" height="32" rx="6" fill="#ea580c" />
+    <text x="1176" y="70" font-size="16" text-anchor="middle" fill="#ffffff">🌾</text>
+    <circle cx="1190" cy="54" r="5" fill="#22c55e" />
+
+    <!-- ==================== LEFT AREA: MAHADBT GOVERNMENT PORTAL ==================== -->
+    <g transform="translate(0, 88)">
+      <rect width="900" height="652" fill="#f8fafc" />
+      
+      <!-- Maharashtra Govt Header -->
+      <rect width="900" height="60" fill="url(#portalGrad)" />
+      <text x="30" y="36" font-family="sans-serif" font-size="16" font-weight="800" fill="#ffffff">महाराष्ट्र शासन | Government of Maharashtra — MahaDBT Portal</text>
+      <text x="30" y="52" font-family="sans-serif" font-size="10.5" fill="#ffedd5">मुख्यमंत्री रोजगार निर्मिती कार्यक्रम (CMEGP) थेट लाभार्थी अर्ज</text>
+
+      <!-- Portal Form Container -->
+      <g transform="translate(40, 85)">
+        <text x="0" y="20" font-family="sans-serif" font-size="16" font-weight="700" fill="#0f172a">विभाग १: अर्जदाराची माहिती (Applicant Information)</text>
+        <line x1="0" y1="32" x2="820" y2="32" stroke="#cbd5e1" stroke-width="1.5" />
+
+        <!-- Field 1: Full Name -->
+        <g transform="translate(0, 50)">
+          <text x="0" y="0" font-family="sans-serif" font-size="11" font-weight="600" fill="#334155">संपूर्ण नाव (Full Name as per Aadhaar) *</text>
+          <rect y="8" width="380" height="36" rx="4" fill="#ffffff" stroke="#10b981" stroke-width="2" />
+          <text x="12" y="31" font-family="sans-serif" font-size="12" font-weight="600" fill="#0f172a">सविता मारुती सावंत (Savita Maruti Sawant)</text>
+          <!-- VyaparMarg Injected Indicator Badge -->
+          <rect x="335" y="16" width="36" height="20" rx="3" fill="#dcfce7" />
+          <text x="353" y="30" font-family="sans-serif" font-size="9" font-weight="700" fill="#15803d" text-anchor="middle">भरले ✓</text>
+        </g>
+
+        <!-- Field 2: Aadhaar Number -->
+        <g transform="translate(420, 50)">
+          <text x="0" y="0" font-family="sans-serif" font-size="11" font-weight="600" fill="#334155">आधार क्रमांक (Aadhaar Number) *</text>
+          <rect y="8" width="380" height="36" rx="4" fill="#ffffff" stroke="#10b981" stroke-width="2" />
+          <text x="12" y="31" font-family="monospace" font-size="12" font-weight="600" fill="#0f172a">XXXXXXXX9842</text>
+          <rect x="335" y="16" width="36" height="20" rx="3" fill="#dcfce7" />
+          <text x="353" y="30" font-family="sans-serif" font-size="9" font-weight="700" fill="#15803d" text-anchor="middle">भरले ✓</text>
+        </g>
+
+        <!-- Field 3: District & Taluka -->
+        <g transform="translate(0, 115)">
+          <text x="0" y="0" font-family="sans-serif" font-size="11" font-weight="600" fill="#334155">जिल्हा (District) *</text>
+          <rect y="8" width="380" height="36" rx="4" fill="#ffffff" stroke="#10b981" stroke-width="2" />
+          <text x="12" y="31" font-family="sans-serif" font-size="12" font-weight="600" fill="#0f172a">सांगली (Sangli) - ग्रामीण</text>
+          <rect x="335" y="16" width="36" height="20" rx="3" fill="#dcfce7" />
+          <text x="353" y="30" font-family="sans-serif" font-size="9" font-weight="700" fill="#15803d" text-anchor="middle">भरले ✓</text>
+        </g>
+
+        <!-- Field 4: Enterprise Type -->
+        <g transform="translate(420, 115)">
+          <text x="0" y="0" font-family="sans-serif" font-size="11" font-weight="600" fill="#334155">उद्योगाचा प्रकार (Enterprise Activity) *</text>
+          <rect y="8" width="380" height="36" rx="4" fill="#ffffff" stroke="#10b981" stroke-width="2" />
+          <text x="12" y="31" font-family="sans-serif" font-size="12" font-weight="600" fill="#0f172a">कृषी प्रक्रिया - हळद व काजू (Agro Processing)</text>
+          <rect x="335" y="16" width="36" height="20" rx="3" fill="#dcfce7" />
+          <text x="353" y="30" font-family="sans-serif" font-size="9" font-weight="700" fill="#15803d" text-anchor="middle">भरले ✓</text>
+        </g>
+
+        <!-- Sensitive Boundary Demonstration: Password & CAPTCHA Protected -->
+        <g transform="translate(0, 185)">
+          <rect width="800" height="155" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5" />
+          <text x="20" y="26" font-family="sans-serif" font-size="12" font-weight="800" fill="#991b1b">⚠️ सुरक्षा नियम: गोपनीय माहिती व कॅप्चा (Strict Human-Only Gate)</text>
+          
+          <!-- Sensitive Field 1: OTP / Password -->
+          <g transform="translate(20, 42)">
+            <text x="0" y="0" font-family="sans-serif" font-size="10.5" font-weight="600" fill="#7f1d1d">आधार OTP प्रमाणीकरण (Aadhaar OTP) *</text>
+            <rect y="6" width="220" height="32" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="1.5" />
+            <text x="10" y="26" font-family="monospace" font-size="11" fill="#94a3b8">वापरकर्त्याने भरावा</text>
+            <rect x="250" y="6" width="120" height="32" rx="4" fill="#ef4444" />
+            <text x="310" y="26" font-family="sans-serif" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">OTP पाठवा</text>
+          </g>
+
+          <!-- Sensitive Field 2: CAPTCHA -->
+          <g transform="translate(420, 42)">
+            <text x="0" y="0" font-family="sans-serif" font-size="10.5" font-weight="600" fill="#7f1d1d">सुरक्षा कोड (Security CAPTCHA) *</text>
+            <rect y="6" width="160" height="32" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="1.5" />
+            <rect x="180" y="6" width="120" height="32" rx="4" fill="#e2e8f0" />
+            <text x="240" y="27" font-family="monospace" font-size="13" font-weight="800" fill="#1e293b" text-anchor="middle">K 7 9 B 2</text>
+          </g>
+
+          <rect x="20" y="98" width="760" height="42" rx="6" fill="#ffffff" />
+          <text x="30" y="118" font-family="sans-serif" font-size="10" font-weight="700" fill="#b91c1c">🔒 VyaparMarg Invariant:</text>
+          <text x="175" y="118" font-family="sans-serif" font-size="10" fill="#334155">एक्स्टेन्शन कधीही पासवर्ड, बँक OTP किंवा कॅप्चा वाचत नाही किंवा स्वयंचलित करत नाही.</text>
+          <text x="30" y="132" font-family="sans-serif" font-size="9" fill="#64748b">अर्जाची अंतिम स्वाक्षरी व सबमिशन पूर्णपणे अर्जदाराच्या थेट अधिकारात सुरक्षित राहते.</text>
+        </g>
+
+        <!-- Document Upload Section -->
+        <g transform="translate(0, 360)">
+          <text x="0" y="20" font-family="sans-serif" font-size="13" font-weight="700" fill="#0f172a">विभाग २: आवश्यक कागदपत्रे अपलोड (Tailored Checklist Linked)</text>
+          <rect y="30" width="800" height="60" rx="8" fill="#ffffff" stroke="#cbd5e1" />
+          <text x="20" y="55" font-family="sans-serif" font-size="11" font-weight="600" fill="#334155">📄 सविस्तर प्रकल्प अहवाल (DPR - ₹२५ लाख प्रकल्प)</text>
+          <rect x="620" y="44" width="150" height="30" rx="4" fill="#0284c7" />
+          <text x="695" y="63" font-family="sans-serif" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">ड्राफ्ट फाईल निवडा</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- ==================== RIGHT SIDEBAR: VYAPARMARG EXTENSION PANEL ==================== -->
+    <g transform="translate(900, 88)">
+      <rect width="420" height="652" fill="#0f172a" stroke="#334155" stroke-width="1" />
+      
+      <!-- Extension Panel Top Banner -->
+      <rect width="420" height="60" fill="#ea580c" />
+      <text x="20" y="32" font-family="sans-serif" font-size="15" font-weight="800" fill="#ffffff">🌾 व्यापारमार्ग सहाय्यक (VyaparMarg)</text>
+      <text x="20" y="50" font-family="sans-serif" font-size="10.5" fill="#ffedd5">पोर्टल: MahaDBT (CMEGP अर्ज)</text>
+      <rect x="330" y="18" width="70" height="24" rx="12" fill="#ffffff" fill-opacity="0.2" />
+      <text x="365" y="34" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#ffffff" text-anchor="middle">सक्रिय ✓</text>
+
+      <!-- Connected Profile Card -->
+      <g transform="translate(20, 75)">
+        <rect width="380" height="85" rx="8" fill="#1e293b" stroke="#334155" />
+        <circle cx="35" cy="42" r="18" fill="#0284c7" />
+        <text x="35" y="48" font-size="14" text-anchor="middle" fill="#ffffff">👤</text>
+        <text x="65" y="32" font-family="sans-serif" font-size="12" font-weight="700" fill="#f8fafc">सविता मारुती सावंत (सांगली)</text>
+        <text x="65" y="48" font-family="sans-serif" font-size="10" fill="#94a3b8">मोबाईल अ‍ॅपवरून सिंक केलेला प्लॅन #VM-2026-88</text>
+        <text x="65" y="64" font-family="sans-serif" font-size="10" font-weight="700" fill="#22c55e">पात्रता: CMEGP ३५% अनुदान (₹८,७५,०००)</text>
+      </g>
+
+      <!-- Detected Fields Status Box -->
+      <g transform="translate(20, 175)">
+        <rect width="380" height="155" rx="8" fill="#1e293b" stroke="#059669" stroke-width="1.2" />
+        <text x="16" y="24" font-family="sans-serif" font-size="11.5" font-weight="700" fill="#34d399">फॉर्म माहिती ओळखली (5 Fields Detected):</text>
+        
+        <g transform="translate(16, 42)">
+          <text x="0" y="0" font-family="monospace" font-size="10" fill="#cbd5e1">✓ applicant_name</text>
+          <text x="180" y="0" font-family="sans-serif" font-size="10" fill="#22c55e"> जुळले (100%)</text>
+
+          <text x="0" y="20" font-family="monospace" font-size="10" fill="#cbd5e1">✓ aadhaar_number</text>
+          <text x="180" y="20" font-family="sans-serif" font-size="10" fill="#22c55e"> जुळले (Masked)</text>
+
+          <text x="0" y="40" font-family="monospace" font-size="10" fill="#cbd5e1">✓ district_select</text>
+          <text x="180" y="40" font-family="sans-serif" font-size="10" fill="#22c55e"> जुळले (सांगली)</text>
+
+          <text x="0" y="60" font-family="monospace" font-size="10" fill="#cbd5e1">✓ enterprise_activity</text>
+          <text x="180" y="60" font-family="sans-serif" font-size="10" fill="#22c55e"> जुळले (Agro)</text>
+
+          <text x="0" y="80" font-family="monospace" font-size="10" fill="#ef4444">⊘ password / otp / captcha</text>
+          <text x="180" y="80" font-family="sans-serif" font-size="10" font-weight="700" fill="#ef4444">वगळले (सुरक्षित)</text>
+        </g>
+      </g>
+
+      <!-- Autofill Confirmation Trigger -->
+      <g transform="translate(20, 345)">
+        <rect width="380" height="50" rx="10" fill="#059669" />
+        <text x="190" y="32" font-family="sans-serif" font-size="13" font-weight="800" fill="#ffffff" text-anchor="middle">सुरक्षितपणे माहिती भरा (Safe Autofill)</text>
+      </g>
+
+      <!-- Field-by-Field Guidance Cards -->
+      <g transform="translate(20, 410)">
+        <text x="0" y="16" font-family="sans-serif" font-size="11.5" font-weight="700" fill="#e2e8f0">पोर्टल मार्गदर्शन (Step Guidance):</text>
+        
+        <rect y="28" width="380" height="75" rx="8" fill="#1e293b" />
+        <text x="14" y="48" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#f59e0b">पायरी २: जात व अधिवास पडताळणी</text>
+        <text x="14" y="64" font-family="sans-serif" font-size="9.5" fill="#94a3b8">तुमचे जात प्रमाणपत्र 'आपले सरकार' वरून आधीच</text>
+        <text x="14" y="78" font-family="sans-serif" font-size="9.5" fill="#94a3b8">पडताळले आहे. प्रमाणपत्र बारकोड नंबर टाका.</text>
+        <text x="14" y="94" font-family="sans-serif" font-size="9.5" font-weight="700" fill="#38bdf8">प्रमाणपत्र क्रमांक: MH/OBC/2024/77810</text>
+
+        <rect y="112" width="380" height="65" rx="8" fill="#1e293b" />
+        <text x="14" y="132" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#f59e0b">पायरी ३: बँक शाखा निवड</text>
+        <text x="14" y="148" font-family="sans-serif" font-size="9.5" fill="#94a3b8">सांगली जिल्हा मध्यवर्ती सहकारी बँक किंवा SBI</text>
+        <text x="14" y="162" font-family="sans-serif" font-size="9.5" fill="#94a3b8">शाखा निवडा, जिथे तुमचे बचत गट खाते आहे.</text>
+      </g>
+
+      <!-- Help / Voice Support trigger -->
+      <g transform="translate(20, 595)">
+        <rect width="380" height="38" rx="8" fill="#334155" />
+        <text x="190" y="24" font-family="sans-serif" font-size="11" font-weight="600" fill="#f8fafc" text-anchor="middle">🎙️ मराठी आवाजात मदत ऐका (Voice Help)</text>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,38 @@
+{
+  "manifest_version": 3,
+  "name": "VyaparMarg Portal Assistant (व्यापारमार्ग)",
+  "version": "1.0.0",
+  "description": "Page-aware assistance, field guidance, and safe user-confirmed autofill for Maharashtra government and MSME portals.",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://*.kviconline.gov.in/*",
+    "https://*.aaplesarkar.mahaonline.gov.in/*",
+    "https://*.mahadbt.maharashtra.gov.in/*",
+    "https://*.udyamregistration.gov.in/*",
+    "https://*.mahadiscom.in/*"
+  ],
+  "action": {
+    "default_popup": "src/popup/popup.html",
+    "default_title": "VyaparMarg Assistant"
+  },
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.kviconline.gov.in/*",
+        "https://*.aaplesarkar.mahaonline.gov.in/*",
+        "https://*.mahadbt.maharashtra.gov.in/*",
+        "https://*.udyamregistration.gov.in/*",
+        "https://*.mahadiscom.in/*"
+      ],
+      "js": ["src/content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

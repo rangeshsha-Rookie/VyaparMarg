@@ -1,0 +1,12 @@
+{
+  "name": "@vyaparmarg/extension",
+  "version": "1.0.0",
+  "description": "VyaparMarg Browser Extension for Government Portal Assistance",
+  "scripts": {
+    "build": "node scripts/build.mjs"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.260",
+    "typescript": "^5.3.3"
+  }
+}

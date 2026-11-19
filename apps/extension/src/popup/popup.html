@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VyaparMarg Portal Assistant</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="header">
+    <div class="logo-title">
+      <span class="icon">🌾</span>
+      <div>
+        <h1>व्यापारमार्ग</h1>
+        <p class="subtitle">ग्रामीण उद्योग व योजना सहाय्यक</p>
+      </div>
+    </div>
+    <div class="lang-selector">
+      <select id="langSelect">
+        <option value="mr" selected>मराठी</option>
+        <option value="hi">हिंदी</option>
+        <option value="en">English</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="portal-badge" id="portalBadge">
+    <span class="status-dot"></span>
+    <span id="portalName">पोर्टल शोधत आहे...</span>
+  </div>
+
+  <div class="tab-nav">
+    <button class="tab-btn active" data-tab="guide">मार्गदर्शक (Guide)</button>
+    <button class="tab-btn" data-tab="docs">कागदपत्रे (Docs)</button>
+    <button class="tab-btn" data-tab="autofill">सुरक्षित ऑटो-फिल</button>
+  </div>
+
+  <div class="tab-content" id="guideTab">
+    <div class="card" id="guideContent">
+      <h3>पोर्टल पायऱ्या</h3>
+      <ol id="stepsList" class="steps-list">
+        <li>पोर्टलवर लॉगिन किंवा नोंदणी करा.</li>
+        <li>योग्य योजनेची निवड करा (CMEGP / PMEGP / MahaDBT).</li>
+        <li>कागदपत्रांची पडताळणी करा.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="tab-content hidden" id="docsTab">
+    <div class="card">
+      <h3>आवश्यक कागदपत्रे चेकलिस्ट</h3>
+      <div id="docsList" class="docs-checklist">
+        <label><input type="checkbox" checked disabled> आधार कार्ड (Aadhaar Linked Mobile)</label>
+        <label><input type="checkbox" checked disabled> पॅन कार्ड (PAN Card)</label>
+        <label><input type="checkbox"> उद्यम नोंदणी प्रमाणपत्र (Udyam Certificate)</label>
+        <label><input type="checkbox"> महाराष्ट्र अधिवास दाखला (Domicile)</label>
+        <label><input type="checkbox"> प्रकल्प अहवाल (DPR)</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-content hidden" id="autofillTab">
+    <div class="card">
+      <h3>सुरक्षित प्रोफाईल ऑटो-फिल</h3>
+      <p class="desc">आपल्या व्यापारमार्ग प्रोफाईलमधील सुरक्षित माहिती (नाव, जिल्हा, टर्नओव्हर) या अर्जात भरण्यासाठी खालील बटण दाबा.</p>
+      <div class="safety-notice">
+        🔒 पासवर्ड, OTP, किंवा बँक खात्याचा पिन कधीही भरला जात नाही.
+      </div>
+      <button id="autofillBtn" class="btn primary-btn">
+        ✨ सुरक्षित माहिती भरा
+      </button>
+      <div id="autofillStatus" class="status-msg"></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>VyaparMarg Hybrid Assistant • IDEA Lab</span>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,794 @@
+{
+  "fields": [
+    {
+      "id": "a",
+      "label": "Aprroved Year",
+      "type": "string"
+    },
+    {
+      "id": "b",
+      "label": "No.of Clusters",
+      "type": "string"
+    },
+    {
+      "id": "c",
+      "label": "Name Of Cluster",
+      "type": "string"
+    },
+    {
+      "id": "d",
+      "label": "Location",
+      "type": "string"
+    }
+  ],
+  "data": [
+    [
+      "2015-16",
+      "8",
+      "Jaggery Cluster ",
+      "Kasa-Birsola, Dist. Gondia"
+    ],
+    [
+      "NA",
+      "NA",
+      "Printing Cluster",
+      " Ambegaon, Dist. Pune"
+    ],
+    [
+      "NA",
+      "NA",
+      "Cashew Cluster",
+      "Lanja, Dist. Ratnagiri"
+    ],
+    [
+      "NA",
+      "NA",
+      "Rubber Cluster",
+      " Aurangabad"
+    ],
+    [
+      "NA",
+      "NA",
+      "Khawa (Dairy Product) Cluster",
+      "Bhoom, Dist.Osmanabad"
+    ],
+    [
+      "NA",
+      "NA",
+      "Raisin Cluster",
+      " Kawathe-Mahakal, Dist.Sangli"
+    ],
+    [
+      "NA",
+      "NA",
+      "Raisin Cluster",
+      " Pandharpur, Dist.Solapur"
+    ],
+    [
+      "NA",
+      "NA",
+      "Readymade Garment Cluster, ",
+      "Amravati"
+    ],
+    [
+      "2016-2017",
+      "16",
+      "Rice Mills Cluster",
+      "Chamorshi, Dist. Gadchiroli"
+    ],
+    [
+      "NA",
+      "NA",
+      "Rice Mills Cluster",
+      " Sadakarjuni, Dist. Gondia"
+    ],
+    [
+      "NA",
+      "NA",
+      "Gold Jewelry Cluster",
+      "Nanded"
+    ],
+    [
+      "NA",
+      "NA",
+      "Agriculture Implement Cluster, Sangameshwar",
+      "Ratnagiri "
+    ],
+    [
+      "NA",
+      "NA",
+      "Cashew Cluster",
+      "Shrungarwadi,  Dist.Kolhapur"
+    ],
+    [
+      "NA",
+      "NA",
+      "Rice Mill Cluster",
+      "Mul-Saoli, Dist. Chandrapur"
+    ],
+    [
+      "NA",
+      "NA",
+      "Printing Cluster",
+      " Nanded "
+    ],
+    [
+      "NA",
+      "NA",
+      "Leather Cluster",
+      " Mantha, Dist.Jalna"
+    ],
+    [
+      "NA",
+      "NA",
+      "Honey Processing Cluster,",
+      "Daryapur, Dist.Amravati"
+    ],
+    [
+      "NA",
+      "NA",
+      "Garment Cluster, ",
+      "Kada, Tal.Ashti, Dist.Beed"
+    ],
+    [
+      "NA",
+      "NA",
+      "Coir Cluster",
+      "Vengurla, Dist. Sindhudurg"
+    ],
+    [
+      "NA",
+      "NA",
+      "Agarbatti Cluster",
+      "Pombhurna, Dist.Chandrapur"
+    ],
+    [
+      "NA",
+      "NA",
+      "Cashew Processing Cluster,",
+      " Vengurla, Dist. Sindhudurga"
+    ],
+    [
+      "NA",
+      "NA",
+      "Cashew Processing Cluster, ",
+      "Malwan, Dist. Sindhudurga"
+    ],
+    [
+      "NA",
+      "NA",
+      "Modular Furniture Cluster, ",
+      "Kudal, Dist. Sindhudurga"
+    ],
+    [
+      "NA",
+      "NA",
+      "Mango (Mixed Fruit) Processing Cluster, ",
+      "Devgad, Dist. Sindhudurga"
+    ],
+    [
+      "2017-18",
+      "8",
+      "Printing Cluster, ",
+      "Kabnoor, Dist. Kolhapur"
+    ],
+    [
+      "NA",
+      "NA",
+      " File Making & Printing Cluster, ",
+      "Ahmednagar"
+    ],
+    [
+      "NA",
+      "NA",
+      "Gold Jewellery Cluster, ",
+      "Ahmednagar"
+    ],
+    [
+      "NA",
+      "NA",
+      "Paithani Saree Cluster, Paithan",
+      "Ch.Sambhajinagar"
+    ],
+    [
+      "NA",
+      "NA",
+      "Agriculture Implements Cluster, ",
+      "Latur"
+    ],
+    [
+      "NA",
+      "NA",
+      "Musical Instruments Cluster,",
+      "Miraj, Dist.Sangli"
+    ],
+    [
+      "NA",
+      "NA",
+      "Engineering & Fabrication Cluster,",
+      "Dist. Osmanabad"
+    ],
+    [
+      "NA",
+      "NA",
+      "Warli Painting & Framing Cluster",
+      "Jawhar, Dist. Palghar"
+    ],
+    [
+      "2018-19",
+      "17",
+      "Fabrication & Engineering Cluster, Hingoli",
+      "Hingoli"
+    ],
+    [
+      "NA",
+      "NA",
+      "Terry Towel Cluster, ",
+      "Solapur"
+    ],
+    [
+      "NA",
+      "NA",
+      "Spices Cluster",
+      "Jalna"
+    ],
+    [
+      "NA",
+      "NA",
+      "Agricultural Implements & Engineering Cluster, ",
+      "Jafrabad, Dist. Jalna"
+    ],
+    [
+      "NA",
+      "NA",
+      "Steel Furniture Cluster, ",
+      "Latur"
+    ],
+    [
+      "NA",
+      "NA",
+      "Daulatabad Bakery Cluster",
+      "Aurangabad"
+    ],
+    [
+      "NA",
+      "NA",
+      "Solar Charkha Cluster, ",
+      "Amravati"
+    ],
+    [
+      "NA",
+      "NA",
+      "Readymade Garment Cluster,",
+      " Junnar, Dist. Pune"
+    ],
+    [
+      "NA",
+      "NA",
+      "Garment Cluster,",
+      " Bhoom, Dist. Osmanabad"
+    ],
+    [
+      "NA",
+      "NA",
+      "Textile Cluster, ",
+      "Dhule"
+    ],
+    [
+      "NA",
+      "NA",
+      " Bhel Bhatta Cluster, ",
+      "Nashik"
+    ],
+    [
+      "NA",
+      "NA",
+      " Fabrication Cluster",
+      "Satara"
+    ],
+    [
+      "NA",
+      "NA",
+      " Raisin Cluster,",
+      " Chinchani, Dist. Sangli"
+    ],
+    [
+      "NA",
+      "NA",
+      "Agarbatti Cluster, ",
+      "Nagpur"
+    ],
+    [
+      "NA",
+      "NA",
+      "Garment Cluster",
+      "Sangamner, Dist. Ahmednagar"
+    ],
+    [
+      "NA",
+      "NA",
+      "Forging (Engineering) Cluster,",
+      " Aurangabad"
+    ],
+    [
+      "NA",
+      "NA",
+      "Powerloom Cluster,",
+      " Hatkanagle, Dist. Kolhapur"
+    ],
+    [
+      "2019-20",
+      "24",
+      "Truck Body Building Cluster,",
+      "Madalmohi, Dist.Beed"
+    ],
+    [
+      "NA",
+      "NA",
+      "Raisin Cluster, ",
+      "Osmanabad"
+    ],
+    [
+      "NA",
+      "NA",
+      "Spices Cluster ",
+      "Pimpalner, Dist. Beed"
+    ],
+    [
+      "NA",
+      "NA",
+      "Sarvoday Garment Cluster, ",
+      "Beed"
+    ],
+    [
+      "NA",
+      "NA",
+      "Textile Cluster,",
+      " Basmat, Dist. Hingoli"
+    ],
+    [
+      "NA",
+      "NA",
+      "Raisin Cluster, ",
+      "Madrup, Dist. Solapur"
+    ],
+    [
+      "NA",
+      "NA",
+      "Honey Cluster,",
+      " Latur"
+    ],
+    [
+      "NA",
+      "NA",
+      "Soap Cluster, ",
+      "Ch.Sambhajinagar"
+    ],
+    [
+      "NA",
+      "NA",
+      "Banjara Arts & Garment Cluster,",
+      "Yavatmal "
+    ],
+    [
+      "NA",
+      "NA",
+      "Turmeric Cluster, ",
+      "Sengaon, Hingoli"
+    ],
+    [
+      "NA",
+      "NA",
+      "Leather Cluster, ",
+      "Osmanabad"
+    ],
+    [
+      "NA",
+      "NA",
+      "Spices Cluster, ",
+      "Ambejogai, Dist. Beed"
+    ],
+    [
+      "NA",
+      "NA",
+      "Catechu Cluster, ",
+      "Abloli, Dist. Ratnagiri"
+    ],
+    [
+      "NA",
+      "NA",
+      "Jaggery Cluster, ",
+      "Latur"
+    ],
+    [
+      "NA",
+      "NA",
+      "Garment Cluster",
+      "Kopargaon, Dist. Ahmednagar"
+    ],
+    [
+      "NA",
+      "NA",
+      "Bamboo Cluster, ",
+      "Surgana, Dist. Nashik"
+    ],
+    [
+      "NA",
+      "NA",
+      "Textile Cluster, ",
+      "Abdulallt, Dist. Kolhapur"
+    ],
+    [
+      "NA",
+      "NA",
+      "Leather Cluster, ",
+      "Daryapur, Dist. Amravati"
+    ],
+    [
+      "NA",
+      "NA",
+      "Ginners & Millers Cluster, ",
+      "Auragabad"
+    ],
+    [
+      "NA",
+      "NA",
+      "Gloves Cluster, ",
+      "Sangli"
+    ],
+    [
+      "NA",
+      "NA",
+      "Textile Cluster, ",
+      "Solapur"
+    ],
+    [
+      "NA",
+      "NA",
+      "Packaging & Printing Cluster, ",
+      "Satara"
+    ],
+    [
+      "NA",
+      "NA",
+      "Security Printing Cluster, ",
+      "Kolhapur"
+    ],
+    [
+      "NA",
+      "NA",
+      "Alumina Cluster, ",
+      "Kolhapur"
+    ],
+    [
+      "2020-21",
+      "5",
+      "Leather Cluster, ",
+      "Jat, Dist. Sangli"
+    ],
+    [
+      "NA",
+      "NA",
+      "Jaggery Cluster",
+      "Satara"
+    ],
+    [
+      "NA",
+      "NA",
+      "General Engineering Cluster, ",
+      "Kadegaon, Dist. Sangli"
+    ],
+    [
+      "NA",
+      "NA",
+      "Industrial Engineering & Pump Component Cluster, ",
+      "Ashta, Dist. Sangli"
+    ],
+    [
+      "NA",
+      "NA",
+      "Women Garment Cluster, ",
+      "Dist. Nagpur"
+    ],
+    [
+      "2021-22",
+      "7",
+      "Rice Mill Cluster, ",
+      "Junnar, Dist. Pune"
+    ],
+    [
+      "NA",
+      "NA",
+      "Leather Cluster, ",
+      "Satara"
+    ],
+    [
+      "NA",
+      "NA",
+      "Chikoo Cluster, ",
+      "Talsari, Dist. Palghar"
+    ],
+    [
+      "NA",
+      "NA",
+      "Solar Panel Cluster, ",
+      "Latur"
+    ],
+    [
+      "NA",
+      "NA",
+      "Rice Mill Cluster,",
+      " Shahapur, Dist. Thane"
+    ],
+    [
+      "NA",
+      "NA",
+      "Sangha Textile Cluster, ",
+      "Akola"
+    ],
+    [
+      "NA",
+      "NA",
+      "Agro Packaging & Printing Cluster, ",
+      "Latur"
+    ],
+    [
+      "2022-23",
+      "13",
+      "Teakwood Furniture Cluster",
+      "Parathwada, Achalpur, Dist.Amravati"
+    ],
+    [
+      "NA",
+      "NA",
+      "Steel Furniture  & Agri Equipment Cluster, ",
+      "Kej, Ambejogai, Beed"
+    ],
+    [
+      "NA",
+      "NA",
+      "Engineering Gramodyog Cluster, ",
+      "Khedgaon, Vani,      Dist. Nashik"
+    ],
+    [
+      "NA",
+      "NA",
+      "Textile Cluster, ",
+      "Rendal, Dist. Kolhapur"
+    ],
+    [
+      "NA",
+      "NA",
+      "Garment Cluster",
+      "Chalisgaon, Dist. Jalgaon"
+    ],
+    [
+      "NA",
+      "NA",
+      "Jackfruit & Multifruit Cluster,",
+      " Kudal, Dist.Sindhudurg"
+    ],
+    [
+      "NA",
+      "NA",
+      "Rice Mill Cluster,",
+      "Ajara, Dist. Kolhapur"
+    ],
+    [
+      "NA",
+      "NA",
+      "Food processing Cluster, ",
+      "Akola"
+    ],
+    [
+      "NA",
+      "NA",
+      "Textile (Testing Laboratory) Cluster, ",
+      "Shirpur, Dist. Dhule"
+    ],
+    [
+      "NA",
+      "NA",
+      "Cotton Processing Cluster, ",
+      "Selu, Dist. Parbhani"
+    ],
+    [
+      "NA",
+      "NA",
+      "Chilli Powder and Spices Cluster, ",
+      "Bhivapur, Dist. Nagpur"
+    ],
+    [
+      "NA",
+      "NA",
+      "Milk & Milk Products Cluster,",
+      " Achalpur, Dist. Amravati"
+    ],
+    [
+      "NA",
+      "NA",
+      "Flameproof & Safety Equipment s Specialized Engineering Cluster, ",
+      "Aurangabad"
+    ],
+    [
+      "2023-24",
+      "24",
+      "Sant Gorobakaka Matikala Udyog Cluster,",
+      " Beed"
+    ],
+    [
+      "NA",
+      "NA",
+      "Agro Processing Cluster, ",
+      "Kannad, Dist. Aurangabad"
+    ],
+    [
+      "NA",
+      "NA",
+      "Basic Appreal Cluster, ",
+      "Butibori, Dist. Nagpur "
+    ],
+    [
+      "NA",
+      "NA",
+      "Banjara Art & Garment Cluster, ",
+      "Nandurga, Dist. Latur"
+    ],
+    [
+      "NA",
+      "NA",
+      "Agarbatti Cluster, ",
+      "Lakhani, Dist. Bhandara"
+    ],
+    [
+      "NA",
+      "NA",
+      "Turmeric Cluster, ",
+      "Islampur, Dist. Sangli"
+    ],
+    [
+      "NA",
+      "NA",
+      "Textile Cluster, ",
+      "Navapur, Dist. Nandurbar"
+    ],
+    [
+      "NA",
+      "NA",
+      "FMCG & Agriculture Packaging Cluster, ",
+      "Nashik"
+    ],
+    [
+      "NA",
+      "NA",
+      "Spices Cluster ",
+      "Latur"
+    ],
+    [
+      "NA",
+      "NA",
+      "Garment Cluster",
+      "Chalisgaon, Dist. Jalgaon"
+    ],
+    [
+      "NA",
+      "NA",
+      "Readymade Garment Cluster",
+      "Anjangaon-Surji,\nDist. Amravati"
+    ],
+    [
+      "NA",
+      "NA",
+      "Golden Value Food Cluster,",
+      "Ch.Sambhajinagar"
+    ],
+    [
+      "NA",
+      "NA",
+      "Cold Pressed Oil Cluster, ",
+      "Yavatmal "
+    ],
+    [
+      "NA",
+      "NA",
+      "Garment Cluster,",
+      "Chikhali,  Buldhana"
+    ],
+    [
+      "NA",
+      "NA",
+      "Food Processing Cluster, ",
+      "Jalgaon"
+    ],
+    [
+      "NA",
+      "NA",
+      "Garment Cluster, ",
+      "Kagal, Dist. Kolhapur"
+    ],
+    [
+      "NA",
+      "NA",
+      "Spices Cluster",
+      "Bhiwapur, Dist. Nagpur"
+    ],
+    [
+      "NA",
+      "NA",
+      "Food Testing Laboratory Cluster, ",
+      "Vinchur, Dist. Nashik"
+    ],
+    [
+      "NA",
+      "NA",
+      "Aluminium Cluster",
+      "Dist. Ahmednagar"
+    ],
+    [
+      "NA",
+      "NA",
+      "Modular Furniture Cluster",
+      "Udgir, Dist. Latur"
+    ],
+    [
+      "NA",
+      "NA",
+      "Packaging Cluster",
+      "Dist. -Satara"
+    ],
+    [
+      "NA",
+      "NA",
+      "Spices Cluster",
+      "Magalvedha, Dist. Solapur"
+    ],
+    [
+      "NA",
+      "NA",
+      "Furniture Cluster",
+      "Umarkhed, Dist. Yavatmal"
+    ],
+    [
+      "NA",
+      "NA",
+      "Spices Cluster (Annapurna Mahila Udyog Samuh)",
+      "Padhegaon, Tal.Shrirampur, Dist.Ahmednagar"
+    ],
+    [
+      "2024-25",
+      "6",
+      "Bakery Cluster, ",
+      "Miraj, Dist. Sangli"
+    ],
+    [
+      "NA",
+      "NA",
+      "Khawa Cluster, ",
+      "Jalgaon (Jamod), Buldhana"
+    ],
+    [
+      "NA",
+      "NA",
+      "Sweet and Spongy Bakers Cluster, ",
+      "Malegaon, Dist. Nashik"
+    ],
+    [
+      "NA",
+      "NA",
+      "Paithani Cluster",
+      "Yeola, Dist. Nashik"
+    ],
+    [
+      "NA",
+      "NA",
+      "Poultry Feed Cluster",
+      "Kada, Dist.Beed"
+    ],
+    [
+      "NA",
+      "NA",
+      "Onion Processing Cluster",
+      "Shrigonda, Dist.Ahmednagar"
+    ]
+  ]
+}

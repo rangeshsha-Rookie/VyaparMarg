@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
+  ActivityIndicator,
   FlatList,
   Modal,
   Pressable,
@@ -11,9 +12,21 @@ import {
   TextInput,
   View,
 } from "react-native";
+import { supabase } from "./src/lib/supabase";
+import {
+  createApplication,
+  createProfile,
+  getApplications,
+  getDigitalTools,
+  getLogisticsQuote,
+  getMarketplaces,
+  getProfiles,
+  getSchemeRecommendations,
+  sendAssistantMessage,
+} from "./src/lib/api";
 
 type Language = "mr" | "hi" | "en";
-type NavTab = "assistant" | "schemes" | "applications" | "profile";
+type NavTab = "assistant" | "schemes" | "marketplaces" | "applications" | "logistics" | "profile";
 
 type BusinessProfile = {
   id: string;
@@ -21,10 +34,9 @@ type BusinessProfile = {
   business_type: string;
   state: string;
   district: string;
-  annual_turnover_inr: number;
-  category: string;
-  gender: string;
-  is_urban: boolean;
+  annual_turnover?: number;
+  category?: string;
+  gender?: string;
 };
 
 type SchemeRecommendation = {
@@ -32,7 +44,7 @@ type SchemeRecommendation = {
   scheme_name: string;
   organization: string;
   category_type: "loan" | "subsidy";
-  eligibility_status: "eligible" | "ineligible" | "missing_information";
+  eligibility_status: "eligible" | "ineligible" | "needs_information";
   matching_score: number;
   explanation: string;
   missing_fields: string[];
@@ -59,97 +71,36 @@ type ChatMessage = {
   timestamp: string;
 };
 
-const initialSchemes: SchemeRecommendation[] = [
-  {
-    scheme_id: "pmegp_2026",
-    scheme_name: "Prime Minister's Employment Generation Programme (PMEGP)",
-    organization: "KVIC / Khadi & Village Industries Commission",
-    category_type: "subsidy",
-    eligibility_status: "eligible",
-    matching_score: 96,
-    explanation: "Eligible for up to ₹50 Lakh loan with 25-35% margin money subsidy for manufacturing & service micro-units in Maharashtra.",
-    missing_fields: [],
-    max_benefit_amount_inr: 5000000,
-    subsidy_percentage: 35,
-    official_portal_url: "https://www.kviconline.gov.in/pmegpeportal",
-    required_documents: ["Udyam Registration Certificate", "Aadhaar Card", "PAN Card", "Detailed Project Report (DPR)", "Caste Certificate", "Bank Passbook"],
-  },
-  {
-    scheme_id: "cmegp_mah_2026",
-    scheme_name: "Chief Minister Employment Generation Programme (CMEGP Maharashtra)",
-    organization: "Directorate of Industries, Govt. of Maharashtra",
-    category_type: "subsidy",
-    eligibility_status: "eligible",
-    matching_score: 92,
-    explanation: "Maharashtra Govt project subsidy providing up to ₹50 Lakh for manufacturing & ₹10 Lakh for service micro-enterprises with 15-35% subsidy.",
-    missing_fields: [],
-    max_benefit_amount_inr: 5000000,
-    subsidy_percentage: 35,
-    official_portal_url: "https://mahadiscom.in/cmegp",
-    required_documents: ["Maharashtra Domicile Certificate", "Udyam Certificate", "Aadhaar Card", "Project Proposal", "Educational Certificate"],
-  },
-  {
-    scheme_id: "pmsvanidhi_2026",
-    scheme_name: "PM SVANidhi (Micro-Credit Loan Scheme)",
-    organization: "Ministry of Housing and Urban Affairs",
-    category_type: "loan",
-    eligibility_status: "eligible",
-    matching_score: 88,
-    explanation: "Collateral-free working capital loan up to ₹50,000 with 7% interest subsidy and digital transaction cashback rewards.",
-    missing_fields: [],
-    max_benefit_amount_inr: 50000,
-    subsidy_percentage: 7,
-    official_portal_url: "https://pmsvanidhi.mohua.gov.in",
-    required_documents: ["Vending Certificate / Urban Local Body ID", "Aadhaar Card", "Bank Account linked to Mobile"],
-  },
-];
-
 export default function App() {
+  const [session, setSession] = useState<{ access_token: string } | null>(null);
+  const [authEmail, setAuthEmail] = useState("");
+  const [authPassword, setAuthPassword] = useState("");
+  const [authError, setAuthError] = useState("");
+  const [authMode, setAuthMode] = useState<"signin" | "signup">("signin");
+  const [loading, setLoading] = useState(false);
+
   const [language, setLanguage] = useState<Language>("mr");
   const [activeTab, setActiveTab] = useState<NavTab>("assistant");
+  const [profile, setProfile] = useState<BusinessProfile | null>(null);
 
-  const [profile] = useState<BusinessProfile>({
-    id: "profile-rangesh-53",
-    business_name: "Gupta Agro & Business Solutions",
-    business_type: "Agricultural Products & Micro-Retail",
-    state: "Maharashtra",
-    district: "Thane",
-    annual_turnover_inr: 1500000,
-    category: "OBC",
-    gender: "Male",
-    is_urban: false,
-  });
+  // Profile creation form state
+  const [createProfileName, setCreateProfileName] = useState("");
+  const [createProfileType, setCreateProfileType] = useState("agro_processing");
+  const [createProfileDistrict, setCreateProfileDistrict] = useState("Kolhapur");
+  const [createProfileTurnover, setCreateProfileTurnover] = useState("2500000");
 
-  const [schemes] = useState<SchemeRecommendation[]>(initialSchemes);
+  const [schemes, setSchemes] = useState<SchemeRecommendation[]>([]);
+  const [marketplaces, setMarketplaces] = useState<any[]>([]);
+  const [digitalTools, setDigitalTools] = useState<any[]>([]);
+  const [applications, setApplications] = useState<ApplicationPlan[]>([]);
   const [categoryFilter, setCategoryFilter] = useState<"all" | "subsidy" | "loan">("all");
   const [searchQuery, setSearchQuery] = useState("");
-
-  const [applications, setApplications] = useState<ApplicationPlan[]>([
-    {
-      id: "app-101",
-      scheme_id: "pmegp_2026",
-      scheme_name: "PMEGP Loan & 35% Margin Money Subsidy",
-      portal_url: "https://www.kviconline.gov.in/pmegpeportal",
-      status: "document_collection",
-      required_documents: ["Udyam Registration Certificate", "Aadhaar Card", "PAN Card", "Detailed Project Report (DPR)", "Bank Passbook"],
-      completed_documents: ["Aadhaar Card", "PAN Card", "Bank Passbook"],
-    },
-    {
-      id: "app-102",
-      scheme_id: "cmegp_mah_2026",
-      scheme_name: "CMEGP Maharashtra State Subsidy",
-      portal_url: "https://mahadiscom.in/cmegp",
-      status: "draft",
-      required_documents: ["Maharashtra Domicile Certificate", "Udyam Certificate", "Aadhaar Card", "Project Proposal"],
-      completed_documents: ["Aadhaar Card"],
-    },
-  ]);
 
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: "1",
       sender: "assistant",
-      text: "नमस्कार! मी व्यापारमार्ग एआय सहाय्यक आहे. आपल्या व्यवसायासाठी PMEGP, CMEGP योजना, कर्ज आणि अनुदानाबद्दल माहिती विचारा.",
+      text: "नमस्कार! मी व्यापारमार्ग एआय सहाय्यक आहे. आपल्या व्यवसायासाठी PMEGP, CMEGP, MahaDBT योजना, ३५% अनुदान आणि अर्जाबद्दल विचारा.",
       timestamp: "12:00 PM",
     },
   ]);
@@ -157,7 +108,141 @@ export default function App() {
   const [isListening, setIsListening] = useState(false);
   const [selectedScheme, setSelectedScheme] = useState<SchemeRecommendation | null>(null);
 
-  function handleSendMessage(customText?: string) {
+  // Student 2: Logistics state
+  const [logisticsOrigin, setLogisticsOrigin] = useState("Kolhapur");
+  const [logisticsDest, setLogisticsDest] = useState("Pune");
+  const [logisticsWeight, setLogisticsWeight] = useState("150");
+  const [logisticsQuote, setLogisticsQuote] = useState<any>(null);
+
+  // Check Supabase session on mount
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      if (data.session) {
+        setSession({ access_token: data.session.access_token });
+      }
+    });
+  }, []);
+
+  // When session changes, load user's real business profile and dynamic recommendations
+  useEffect(() => {
+    if (!session) return;
+    loadUserData(session.access_token);
+  }, [session]);
+
+  async function loadUserData(token: string) {
+    setLoading(true);
+    try {
+      const profiles = await getProfiles(token);
+      if (profiles && profiles.length > 0) {
+        const userProfile = profiles[0];
+        setProfile(userProfile);
+        await refreshRecommendations(userProfile.id, token);
+      }
+      const [mktData, toolsData, appData] = await Promise.allSettled([
+        getMarketplaces(token),
+        getDigitalTools(token),
+        getApplications(token),
+      ]);
+      if (mktData.status === "fulfilled") setMarketplaces(mktData.value);
+      if (toolsData.status === "fulfilled") setDigitalTools(toolsData.value);
+      if (appData.status === "fulfilled" && Array.isArray(appData.value)) {
+        setApplications(
+          appData.value.map((a: any) => ({
+            id: a.id,
+            scheme_id: a.scheme_id,
+            scheme_name: a.portal_url || "Registered Application",
+            portal_url: a.portal_url,
+            status: a.status || "document_collection",
+            required_documents: ["Aadhaar Card", "PAN Card", "Udyam Certificate"],
+            completed_documents: ["Aadhaar Card"],
+          }))
+        );
+      }
+    } catch (err) {
+      console.warn("Could not load complete profile data from server:", err);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function refreshRecommendations(profileId: string, token: string) {
+    try {
+      const recs = await getSchemeRecommendations(profileId, token);
+      if (Array.isArray(recs)) {
+        const mapped: SchemeRecommendation[] = recs.map((item: any) => ({
+          scheme_id: item.scheme_id,
+          scheme_name: item.scheme.name,
+          organization: item.scheme.authority || "Government of Maharashtra / India",
+          category_type: "subsidy",
+          eligibility_status: item.eligibility_status,
+          matching_score: Math.round((item.score ?? 0.5) * 100),
+          explanation: item.reasons?.join(". ") || item.scheme.short_description,
+          missing_fields: item.missing_requirements || [],
+          max_benefit_amount_inr: 5000000,
+          subsidy_percentage: 35,
+          official_portal_url: item.scheme.official_portal_url,
+          required_documents: item.missing_requirements?.length > 0
+            ? item.missing_requirements.map((r: string) => r.replace("_", " ").toUpperCase())
+            : ["Aadhaar Card", "PAN Card", "Udyam Certificate", "DPR"],
+        }));
+        setSchemes(mapped);
+      }
+    } catch (err) {
+      console.warn("Failed to fetch dynamic recommendations:", err);
+    }
+  }
+
+  async function handleAuth() {
+    setAuthError("");
+    setLoading(true);
+    try {
+      if (authMode === "signup") {
+        const { data, error } = await supabase.auth.signUp({ email: authEmail, password: authPassword });
+        if (error) throw error;
+        if (data.session) {
+          setSession({ access_token: data.session.access_token });
+        } else {
+          setAuthError("Account created! Check email to confirm, then sign in.");
+          setAuthMode("signin");
+        }
+      } else {
+        const { data, error } = await supabase.auth.signInWithPassword({ email: authEmail, password: authPassword });
+        if (error) throw error;
+        if (data.session) {
+          setSession({ access_token: data.session.access_token });
+        }
+      }
+    } catch (err: any) {
+      setAuthError(err.message || "Authentication failed.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleCreateProfile() {
+    if (!session) return;
+    setLoading(true);
+    try {
+      const created = await createProfile(
+        {
+          business_name: createProfileName,
+          business_type: createProfileType,
+          state: "Maharashtra",
+          district: createProfileDistrict,
+          annual_turnover: parseFloat(createProfileTurnover) || 1000000,
+        },
+        session.access_token
+      );
+      setProfile(created);
+      await refreshRecommendations(created.id, session.access_token);
+    } catch (err: any) {
+      setAuthError("Failed to save profile: " + err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleSendMessage(customText?: string) {
     const textToSend = customText ?? inputText;
     if (!textToSend.trim()) return;
 
@@ -171,27 +256,50 @@ export default function App() {
     setMessages((prev) => [...prev, userMsg]);
     if (!customText) setInputText("");
 
-    setTimeout(() => {
-      let reply = "आपल्या महाराष्ट्रातील व्यवसायासाठी PMEGP योजनेअंतर्गत ३५% अनुदान (Subsidy) उपलब्ध आहे!";
-      const query = textToSend.toLowerCase();
+    if (profile && session) {
+      try {
+        const res = await sendAssistantMessage(
+          {
+            business_profile_id: profile.id,
+            message: textToSend.trim(),
+            language: language,
+          },
+          session.access_token
+        );
+        if (res?.assistant_message) {
+          const botMsg: ChatMessage = {
+            id: (Date.now() + 1).toString(),
+            sender: "assistant",
+            text: res.assistant_message,
+            timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+          };
+          setMessages((prev) => [...prev, botMsg]);
+          await refreshRecommendations(profile.id, session.access_token);
+          return;
+        }
+      } catch (err) {
+        console.warn("Live assistant call failed:", err);
+      }
+    }
 
+    // Grounded regional answer
+    setTimeout(() => {
+      let reply = "आपल्या महाराष्ट्रातील व्यवसायासाठी PMEGP आणि CMEGP योजना उपलब्ध आहेत.";
+      const query = textToSend.toLowerCase();
       if (query.includes("pmegp") || query.includes("subsidy") || query.includes("अनुदान")) {
-        reply = "PMEGP योजनेत तुम्हाला ₹५० लाखांपर्यंत कर्ज आणि ३५% अनुदान मिळते. लागणारे मुख्य कागदपत्रे: १. आधार कार्ड २. उद्यम प्रमाणपत्र ३. प्रकल्प अहवाल (DPR).";
+        reply = "PMEGP योजनेत ग्रामीण भागासाठी ३५% अनुदान (Margin Money) उपलब्ध आहे. आवश्यक कागदपत्रे: १. आधार २. पॅन ३. DPR प्रकल्प अहवाल ४. उद्यम नोंदणी.";
       } else if (query.includes("document") || query.includes("कागदपत्रे")) {
         reply = "योजनेसाठी आवश्यक कागदपत्रे: १. आधार कार्ड २. पॅन कार्ड ३. बँक पासबुक ४. उद्यम नोंदणी ५. महाराष्ट्र अधिवास दाखला (Domicile).";
-      } else if (query.includes("cmegp") || query.includes("महाराष्ट्र")) {
-        reply = "CMEGP ही महाराष्ट्र सरकारची विशेष योजना आहे. यामध्ये ५० लाखांपर्यंत उत्पादन क्षेत्रासाठी २५%-३५% अनुदान मिळते.";
-      } else if (language === "en") {
-        reply = "You qualify for PMEGP (35% Subsidy up to ₹50 Lakh) and CMEGP Maharashtra scheme. Check the Schemes tab for document requirements!";
       }
-
-      const botMsg: ChatMessage = {
-        id: (Date.now() + 1).toString(),
-        sender: "assistant",
-        text: reply,
-        timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-      };
-      setMessages((prev) => [...prev, botMsg]);
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: (Date.now() + 1).toString(),
+          sender: "assistant",
+          text: reply,
+          timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+        },
+      ]);
     }, 500);
   }
 
@@ -199,42 +307,145 @@ export default function App() {
     setIsListening(true);
     setTimeout(() => {
       setIsListening(false);
-      handleSendMessage("PMEGP योजनेसाठी कोणते कागदपत्रे लागतात?");
+      handleSendMessage("माझा कोल्हापुरात गुळाचा कारखाना आहे, वार्षिक टर्नओव्हर २५ लाख आहे, कोणती योजना मिळेल?");
     }, 1500);
   }
 
-  function handleSaveApplication(scheme: SchemeRecommendation) {
-    const existing = applications.find((a) => a.scheme_id === scheme.scheme_id);
-    if (!existing) {
-      const newApp: ApplicationPlan = {
-        id: `app-${Date.now()}`,
-        scheme_id: scheme.scheme_id,
-        scheme_name: scheme.scheme_name,
-        portal_url: scheme.official_portal_url,
-        status: "document_collection",
-        required_documents: scheme.required_documents,
-        completed_documents: [],
-      };
-      setApplications([newApp, ...applications]);
+  async function handleSaveApplication(scheme: SchemeRecommendation) {
+    if (session && profile) {
+      try {
+        await createApplication(
+          { business_profile_id: profile.id, scheme_id: scheme.scheme_id },
+          session.access_token
+        );
+      } catch (err) {
+        console.warn("Could not save application to server:", err);
+      }
     }
+    const newApp: ApplicationPlan = {
+      id: `app-${Date.now()}`,
+      scheme_id: scheme.scheme_id,
+      scheme_name: scheme.scheme_name,
+      portal_url: scheme.official_portal_url,
+      status: "document_collection",
+      required_documents: scheme.required_documents,
+      completed_documents: ["Aadhaar Card"],
+    };
+    setApplications([newApp, ...applications]);
     setActiveTab("applications");
     setSelectedScheme(null);
   }
 
-  function toggleDocument(appId: string, docName: string) {
-    setApplications(
-      applications.map((app) => {
-        if (app.id !== appId) return app;
-        const exists = app.completed_documents.includes(docName);
-        const updated = exists
-          ? app.completed_documents.filter((d) => d !== docName)
-          : [...app.completed_documents, docName];
-        return {
-          ...app,
-          completed_documents: updated,
-          status: updated.length === app.required_documents.length ? "submitted" : "document_collection",
-        };
-      })
+  function handleFetchLogistics() {
+    getLogisticsQuote(
+      {
+        origin_district: logisticsOrigin,
+        destination_district: logisticsDest,
+        weight_kg: parseFloat(logisticsWeight) || 100,
+      },
+      session?.access_token
+    )
+      .then(setLogisticsQuote)
+      .catch((err) => {
+        console.warn("Logistics call error:", err);
+      });
+  }
+
+  // Render Authentication View if no active session
+  if (!session) {
+    return (
+      <SafeAreaView style={styles.safeArea}>
+        <StatusBar style="dark" />
+        <View style={styles.authContainer}>
+          <Text style={styles.authLogo}>Vyapar<Text style={{ color: "#ea580c" }}>Marg</Text></Text>
+          <Text style={styles.authSubtitle}>ग्रामीण उद्योजक सहाय्यक मंच (Rural Business Assistant)</Text>
+          <Text style={styles.authInstruction}>
+            {authMode === "signup" ? "नवीन खाते तयार करा (Create Account)" : "आपल्या खात्यात लॉगिन करा (Sign In)"}
+          </Text>
+
+          <TextInput
+            style={styles.authInput}
+            placeholder="ईमेल आयडी (Email Address)"
+            value={authEmail}
+            autoCapitalize="none"
+            onChangeText={setAuthEmail}
+          />
+          <TextInput
+            style={styles.authInput}
+            placeholder="पासवर्ड (Password)"
+            value={authPassword}
+            secureTextEntry
+            onChangeText={setAuthPassword}
+          />
+
+          {authError ? <Text style={styles.authErrorText}>{authError}</Text> : null}
+
+          <Pressable style={styles.authButton} onPress={handleAuth} disabled={loading}>
+            {loading ? <ActivityIndicator color="#fff" /> : (
+              <Text style={styles.authButtonText}>
+                {authMode === "signup" ? "खाते तयार करा" : "लॉगिन करा (Continue)"}
+              </Text>
+            )}
+          </Pressable>
+
+          <Pressable
+            style={styles.authToggleBtn}
+            onPress={() => {
+              setAuthError("");
+              setAuthMode(authMode === "signup" ? "signin" : "signup");
+            }}
+          >
+            <Text style={styles.authToggleText}>
+              {authMode === "signup" ? "आधीच खाते आहे? लॉगिन करा" : "नवीन आहात? खाते तयार करा"}
+            </Text>
+          </Pressable>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  // Render Profile Setup View if authenticated but profile doesn't exist
+  if (!profile) {
+    return (
+      <SafeAreaView style={styles.safeArea}>
+        <StatusBar style="dark" />
+        <View style={styles.authContainer}>
+          <Text style={styles.authLogo}>व्यवसाय प्रोफाइल तयार करा</Text>
+          <Text style={styles.authSubtitle}>सरकारी योजना व अनुदानासाठी व्यवसाय माहिती आवश्यक आहे.</Text>
+
+          <TextInput
+            style={styles.authInput}
+            placeholder="व्यवसायाचे नाव (उदा. श्री स्वामी समर्थ ॲग्रो)"
+            value={createProfileName}
+            onChangeText={setCreateProfileName}
+          />
+          <TextInput
+            style={styles.authInput}
+            placeholder="व्यवसाय प्रकार (उदा. agro_processing, dairy, retail)"
+            value={createProfileType}
+            onChangeText={setCreateProfileType}
+          />
+          <TextInput
+            style={styles.authInput}
+            placeholder="जिल्हा (उदा. Kolhapur, Pune, Thane)"
+            value={createProfileDistrict}
+            onChangeText={setCreateProfileDistrict}
+          />
+          <TextInput
+            style={styles.authInput}
+            placeholder="वार्षिक उलाढाल INR (उदा. 2500000)"
+            value={createProfileTurnover}
+            keyboardType="numeric"
+            onChangeText={setCreateProfileTurnover}
+          />
+
+          <Pressable style={styles.authButton} onPress={handleCreateProfile} disabled={loading}>
+            {loading ? <ActivityIndicator color="#fff" /> : (
+              <Text style={styles.authButtonText}>प्रोफाइल सेव्ह करा व योजना शोधा</Text>
+            )}
+          </Pressable>
+        </View>
+      </SafeAreaView>
     );
   }
 
@@ -250,17 +461,16 @@ export default function App() {
     <SafeAreaView style={styles.safeArea}>
       <StatusBar style="dark" />
 
-      {/* Modern Blue & Orange Header Bar */}
+      {/* Top Header */}
       <View style={styles.headerBar}>
         <View>
           <View style={styles.brandRow}>
             <Text style={styles.logoText}>Vyapar<Text style={styles.logoAccent}>Marg</Text></Text>
             <View style={styles.stateTag}><Text style={styles.stateTagText}>MAHARASHTRA</Text></View>
           </View>
-          <Text style={styles.ownerText}>Welcome, {profile.business_name}</Text>
+          <Text style={styles.ownerText}>{profile.business_name} ({profile.district})</Text>
         </View>
 
-        {/* Language Picker */}
         <View style={styles.langPicker}>
           {(["mr", "hi", "en"] as Language[]).map((lang) => (
             <Pressable
@@ -276,49 +486,25 @@ export default function App() {
         </View>
       </View>
 
-      {/* Main Body Content */}
+      {/* Main Body */}
       <View style={styles.mainContainer}>
         {/* TAB 1: AI ASSISTANT CHAT & VOICE */}
         {activeTab === "assistant" && (
           <View style={styles.tabContent}>
-            {/* AI Banner */}
             <View style={styles.bannerBox}>
               <View style={styles.bannerHeader}>
                 <Text style={styles.bannerTitle}>
-                  {language === "mr" ? "🤖 व्यापारमार्ग एआय सहाय्यक" : "🤖 Rural Business AI Assistant"}
+                  {language === "mr" ? "🤖 व्यापारमार्ग बहुभाषिक सहाय्यक" : "🤖 Rural Multilingual Assistant"}
                 </Text>
                 <View style={styles.liveBadge}><Text style={styles.liveBadgeText}>ONLINE</Text></View>
               </View>
               <Text style={styles.bannerSub}>
                 {language === "mr"
-                  ? "मराठी आणि हिंदीमध्ये योजना, कर्ज, ३५% अनुदान आणि अर्जाबद्दल माहिती विचारा."
+                  ? "मराठी आणि हिंदीत PMEGP, CMEGP, महाडीबीटी योजना, ३५% अनुदान आणि अर्जाबद्दल विचारा."
                   : "Instant answers on PMEGP, CMEGP loans, 35% subsidies & portal document checklists."}
               </Text>
-
-              {/* Preset Quick Chips */}
-              <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.chipScroll}>
-                <Pressable
-                  style={styles.presetChip}
-                  onPress={() => handleSendMessage("PMEGP ३५% अनुदान योजना माहिती")}
-                >
-                  <Text style={styles.presetChipText}>💡 PMEGP ३५% अनुदान</Text>
-                </Pressable>
-                <Pressable
-                  style={styles.presetChip}
-                  onPress={() => handleSendMessage("CMEGP महाराष्ट्र योजना")}
-                >
-                  <Text style={styles.presetChipText}>🏛️ CMEGP महाराष्ट्र</Text>
-                </Pressable>
-                <Pressable
-                  style={styles.presetChip}
-                  onPress={() => handleSendMessage("लागणारे कागदपत्रे सांगा")}
-                >
-                  <Text style={styles.presetChipText}>📄 कागदपत्रे यादी</Text>
-                </Pressable>
-              </ScrollView>
             </View>
 
-            {/* Chat Conversation */}
             <FlatList
               data={messages}
               keyExtractor={(item) => item.id}
@@ -343,7 +529,6 @@ export default function App() {
               )}
             />
 
-            {/* Chat & Voice Input Controls */}
             <View style={styles.chatInputBar}>
               <Pressable
                 style={[styles.micBtn, isListening && styles.micBtnListening]}
@@ -353,11 +538,7 @@ export default function App() {
               </Pressable>
               <TextInput
                 style={styles.chatTextInput}
-                placeholder={
-                  language === "mr"
-                    ? "येथे प्रश्न विचारा किंवा मायक्रोफोन दाबा..."
-                    : "Ask a question or tap mic..."
-                }
+                placeholder={language === "mr" ? "प्रश्न विचारा किंवा माइक दाबा..." : "Ask a question..."}
                 placeholderTextColor="#8aa0b8"
                 value={inputText}
                 onChangeText={setInputText}
@@ -369,17 +550,16 @@ export default function App() {
           </View>
         )}
 
-        {/* TAB 2: SCHEMES CATALOG & ELIGIBILITY */}
+        {/* TAB 2: DYNAMIC SCHEMES CATALOG */}
         {activeTab === "schemes" && (
           <ScrollView style={styles.tabContent} contentContainerStyle={{ paddingBottom: 24 }}>
             <Text style={styles.sectionHeader}>
               {language === "mr" ? "आपल्या व्यवसायासाठी पात्र योजना" : "Eligible Schemes & Subsidies"}
             </Text>
             <Text style={styles.sectionSub}>
-              Verified for {profile.business_type} · {profile.district}, {profile.state}
+              Evaluated deterministically for {profile.business_type} · {profile.district}, Maharashtra
             </Text>
 
-            {/* Search Bar */}
             <TextInput
               style={styles.searchBar}
               placeholder="Search scheme name or subsidy details..."
@@ -388,35 +568,6 @@ export default function App() {
               onChangeText={setSearchQuery}
             />
 
-            {/* Category Filter Chips */}
-            <View style={styles.filterRow}>
-              <Pressable
-                style={[styles.filterChip, categoryFilter === "all" && styles.filterChipActive]}
-                onPress={() => setCategoryFilter("all")}
-              >
-                <Text style={[styles.filterChipText, categoryFilter === "all" && styles.filterChipTextActive]}>
-                  All Schemes ({schemes.length})
-                </Text>
-              </Pressable>
-              <Pressable
-                style={[styles.filterChip, categoryFilter === "subsidy" && styles.filterChipActive]}
-                onPress={() => setCategoryFilter("subsidy")}
-              >
-                <Text style={[styles.filterChipText, categoryFilter === "subsidy" && styles.filterChipTextActive]}>
-                  Subsidies (अनुदान)
-                </Text>
-              </Pressable>
-              <Pressable
-                style={[styles.filterChip, categoryFilter === "loan" && styles.filterChipActive]}
-                onPress={() => setCategoryFilter("loan")}
-              >
-                <Text style={[styles.filterChipText, categoryFilter === "loan" && styles.filterChipTextActive]}>
-                  Loans (कर्ज)
-                </Text>
-              </Pressable>
-            </View>
-
-            {/* Scheme Cards */}
             {filteredSchemes.map((scheme) => (
               <View key={scheme.scheme_id} style={styles.schemeCard}>
                 <View style={styles.schemeBadgeRow}>
@@ -435,12 +586,6 @@ export default function App() {
                 <Text style={styles.schemeTitle}>{scheme.scheme_name}</Text>
                 <Text style={styles.schemeOrg}>{scheme.organization}</Text>
                 <Text style={styles.schemeExplain}>{scheme.explanation}</Text>
-
-                {scheme.max_benefit_amount_inr ? (
-                  <Text style={styles.benefitText}>
-                    Max Credit / Loan: ₹{(scheme.max_benefit_amount_inr / 100000).toFixed(1)} Lakh
-                  </Text>
-                ) : null}
 
                 <View style={styles.schemeActionRow}>
                   <Pressable
@@ -461,270 +606,261 @@ export default function App() {
           </ScrollView>
         )}
 
-        {/* TAB 3: APPLICATIONS & DOCUMENT TRACKER */}
-        {activeTab === "applications" && (
+        {/* TAB 3: MARKETPLACES & DIGITAL TOOLS */}
+        {activeTab === "marketplaces" && (
           <ScrollView style={styles.tabContent} contentContainerStyle={{ paddingBottom: 24 }}>
-            <Text style={styles.sectionHeader}>Application Plans & Document Checklist</Text>
-            <Text style={styles.sectionSub}>
-              Track certificates required before applying on MahaDBT / Aaple Sarkar portals.
-            </Text>
+            <Text style={styles.sectionHeader}>🛒 Marketplaces & Digital Tools</Text>
+            <Text style={styles.sectionSub}>Sell beyond your taluka with open networks and digital tools.</Text>
 
-            {applications.map((app) => {
-              const progress = Math.round(
-                (app.completed_documents.length / app.required_documents.length) * 100
-              );
-              return (
-                <View key={app.id} style={styles.appCard}>
-                  <View style={styles.appHeaderRow}>
-                    <Text style={styles.appTitle}>{app.scheme_name}</Text>
-                    <View style={styles.statusPill}>
-                      <Text style={styles.statusPillText}>{app.status.replace("_", " ").toUpperCase()}</Text>
-                    </View>
-                  </View>
-
-                  {/* Progress Bar */}
-                  <View style={styles.progressTrack}>
-                    <View style={[styles.progressBar, { width: `${progress}%` }]} />
-                  </View>
-                  <Text style={styles.progressText}>
-                    Document Readiness: {app.completed_documents.length} / {app.required_documents.length} ({progress}%)
-                  </Text>
-
-                  <Text style={styles.docSectionTitle}>Check off documents as you collect them:</Text>
-                  {app.required_documents.map((doc) => {
-                    const isDone = app.completed_documents.includes(doc);
-                    return (
-                      <Pressable
-                        key={doc}
-                        style={styles.checkRow}
-                        onPress={() => toggleDocument(app.id, doc)}
-                      >
-                        <View style={[styles.checkBox, isDone && styles.checkBoxDone]}>
-                          {isDone ? <Text style={styles.checkMark}>✓</Text> : null}
-                        </View>
-                        <Text style={[styles.checkLabel, isDone && styles.checkLabelDone]}>
-                          {doc}
-                        </Text>
-                      </Pressable>
-                    );
-                  })}
+            {marketplaces.map((m: any) => (
+              <View key={m.id} style={styles.marketplaceCard}>
+                <View style={styles.schemeBadgeRow}>
+                  <Text style={styles.mktBadgeText}>{m.category}</Text>
+                  <Text style={styles.commissionText}>{m.commission_model}</Text>
                 </View>
-              );
-            })}
+                <Text style={styles.schemeTitle}>{m.name}</Text>
+                <Text style={styles.schemeExplain}>{m.description}</Text>
+              </View>
+            ))}
+
+            <Text style={[styles.sectionHeader, { marginTop: 14 }]}>📱 Micro-Business Tools</Text>
+            {digitalTools.map((t: any) => (
+              <View key={t.id} style={styles.toolCard}>
+                <Text style={styles.toolName}>{t.name}</Text>
+                <Text style={styles.toolType}>{t.tool_type}</Text>
+                <Text style={styles.toolBenefit}>{t.best_for}</Text>
+              </View>
+            ))}
           </ScrollView>
         )}
 
-        {/* TAB 4: BUSINESS PROFILE */}
+        {/* TAB 4: APPLICATION TRACKER */}
+        {activeTab === "applications" && (
+          <ScrollView style={styles.tabContent} contentContainerStyle={{ paddingBottom: 24 }}>
+            <Text style={styles.sectionHeader}>📋 Application Tracker</Text>
+            {applications.map((app) => (
+              <View key={app.id} style={styles.appCard}>
+                <Text style={styles.appTitle}>{app.scheme_name}</Text>
+                <Text style={styles.statusBadgeText}>Status: {app.status.toUpperCase()}</Text>
+              </View>
+            ))}
+          </ScrollView>
+        )}
+
+        {/* TAB 5: LOGISTICS */}
+        {activeTab === "logistics" && (
+          <ScrollView style={styles.tabContent} contentContainerStyle={{ paddingBottom: 24 }}>
+            <Text style={styles.sectionHeader}>🚚 Rural Logistics Freight Planner (Student 2)</Text>
+            <View style={styles.logisticsBox}>
+              <Text style={styles.inputLabel}>Origin District:</Text>
+              <TextInput style={styles.inputField} value={logisticsOrigin} onChangeText={setLogisticsOrigin} />
+              <Text style={styles.inputLabel}>Destination:</Text>
+              <TextInput style={styles.inputField} value={logisticsDest} onChangeText={setLogisticsDest} />
+              <Text style={styles.inputLabel}>Weight (kg):</Text>
+              <TextInput style={styles.inputField} value={logisticsWeight} keyboardType="numeric" onChangeText={setLogisticsWeight} />
+              <Pressable style={styles.calcBtn} onPress={handleFetchLogistics}>
+                <Text style={styles.calcBtnText}>Calculate Freight Rates</Text>
+              </Pressable>
+            </View>
+            {logisticsQuote && (
+              <View style={{ marginTop: 14 }}>
+                {logisticsQuote.available_carriers?.map((c: any, i: number) => (
+                  <View key={i} style={styles.carrierCard}>
+                    <Text style={styles.carrierName}>{c.carrier_name} - ₹{c.estimated_cost_inr}</Text>
+                    <Text style={styles.schemeExplain}>{c.vehicle_type} · ~{c.estimated_delivery_hours} hrs</Text>
+                  </View>
+                ))}
+              </View>
+            )}
+          </ScrollView>
+        )}
+
+        {/* TAB 6: PROFILE */}
         {activeTab === "profile" && (
           <ScrollView style={styles.tabContent} contentContainerStyle={{ paddingBottom: 24 }}>
-            <Text style={styles.sectionHeader}>Business & Entrepreneur Profile</Text>
-            <Text style={styles.sectionSub}>Used for deterministic scheme eligibility scoring in Maharashtra.</Text>
-
+            <Text style={styles.sectionHeader}>📊 Business Profile & Growth</Text>
             <View style={styles.profileCard}>
-              <View style={styles.profileRow}>
-                <Text style={styles.profileLabel}>Business Name:</Text>
-                <Text style={styles.profileVal}>{profile.business_name}</Text>
-              </View>
-              <View style={styles.profileRow}>
-                <Text style={styles.profileLabel}>Industry / Sector:</Text>
-                <Text style={styles.profileVal}>{profile.business_type}</Text>
-              </View>
-              <View style={styles.profileRow}>
-                <Text style={styles.profileLabel}>Location:</Text>
-                <Text style={styles.profileVal}>{profile.district}, {profile.state}</Text>
-              </View>
-              <View style={styles.profileRow}>
-                <Text style={styles.profileLabel}>Annual Turnover:</Text>
-                <Text style={styles.profileVal}>₹{(profile.annual_turnover_inr / 100000).toFixed(1)} Lakh / year</Text>
-              </View>
-              <View style={styles.profileRow}>
-                <Text style={styles.profileLabel}>Category / Gender:</Text>
-                <Text style={styles.profileVal}>{profile.category} · {profile.gender}</Text>
-              </View>
-              <View style={styles.profileRow}>
-                <Text style={styles.profileLabel}>Region Classification:</Text>
-                <Text style={styles.profileVal}>{profile.is_urban ? "Urban" : "Rural / Semi-Urban"}</Text>
-              </View>
+              <Text style={styles.profileName}>{profile.business_name}</Text>
+              <Text style={styles.profileDetail}>Activity: {profile.business_type}</Text>
+              <Text style={styles.profileDetail}>Location: {profile.district}, {profile.state}</Text>
+              <Text style={styles.profileDetail}>Turnover: ₹{((profile.annual_turnover || 0) / 100000).toFixed(1)} Lakh</Text>
+              <Pressable
+                style={[styles.calcBtn, { backgroundColor: "#dc2626", marginTop: 14 }]}
+                onPress={() => {
+                  supabase.auth.signOut();
+                  setSession(null);
+                  setProfile(null);
+                }}
+              >
+                <Text style={styles.calcBtnText}>लॉगआउट करा (Sign Out)</Text>
+              </Pressable>
             </View>
           </ScrollView>
         )}
+      </View>
 
-        {/* Scheme Details Modal */}
-        <Modal visible={!!selectedScheme} transparent animationType="slide">
+      {/* Details Modal */}
+      {selectedScheme && (
+        <Modal animationType="slide" transparent={true} visible={true}>
           <View style={styles.modalOverlay}>
             <View style={styles.modalContent}>
-              {selectedScheme ? (
-                <>
-                  <Text style={styles.modalTitle}>{selectedScheme.scheme_name}</Text>
-                  <Text style={styles.modalOrg}>{selectedScheme.organization}</Text>
-                  <Text style={styles.modalDesc}>{selectedScheme.explanation}</Text>
+              <Text style={styles.modalTitle}>{selectedScheme.scheme_name}</Text>
+              <Text style={styles.modalOrg}>{selectedScheme.organization}</Text>
+              <Text style={styles.modalExplain}>{selectedScheme.explanation}</Text>
 
-                  <Text style={styles.modalSectionHeading}>Required Documents:</Text>
-                  {selectedScheme.required_documents.map((d) => (
-                    <Text key={d} style={styles.modalDocItem}>• {d}</Text>
-                  ))}
+              <Text style={styles.modalSubtitle}>आवश्यक कागदपत्रे:</Text>
+              {selectedScheme.required_documents.map((doc, i) => (
+                <Text key={i} style={styles.modalDocItem}>• {doc}</Text>
+              ))}
 
-                  <View style={styles.modalBtnRow}>
-                    <Pressable style={styles.modalCloseBtn} onPress={() => setSelectedScheme(null)}>
-                      <Text style={styles.modalCloseBtnText}>Close</Text>
-                    </Pressable>
-                    <Pressable
-                      style={styles.modalApplyBtn}
-                      onPress={() => handleSaveApplication(selectedScheme)}
-                    >
-                      <Text style={styles.modalApplyBtnText}>Add to Application Plan</Text>
-                    </Pressable>
-                  </View>
-                </>
-              ) : null}
+              <View style={styles.modalBtnRow}>
+                <Pressable style={styles.modalCloseBtn} onPress={() => setSelectedScheme(null)}>
+                  <Text style={styles.modalCloseBtnText}>Close</Text>
+                </Pressable>
+                <Pressable style={styles.modalApplyBtn} onPress={() => handleSaveApplication(selectedScheme)}>
+                  <Text style={styles.modalApplyBtnText}>Add to Applications</Text>
+                </Pressable>
+              </View>
             </View>
           </View>
         </Modal>
+      )}
 
-        {/* Bottom Navigation Bar */}
-        <View style={styles.bottomNav}>
-          <Pressable style={styles.navItem} onPress={() => setActiveTab("assistant")}>
-            <Text style={[styles.navIcon, activeTab === "assistant" && styles.navIconActive]}>💬</Text>
-            <Text style={[styles.navLabel, activeTab === "assistant" && styles.navLabelActive]}>Assistant</Text>
+      {/* Bottom Nav */}
+      <View style={styles.bottomNav}>
+        {[
+          { key: "assistant", label: "Assistant", icon: "🤖" },
+          { key: "schemes", label: "Schemes", icon: "🏛️" },
+          { key: "marketplaces", label: "Markets", icon: "🛒" },
+          { key: "applications", label: "Tracker", icon: "📋" },
+          { key: "logistics", label: "Logistics", icon: "🚚" },
+          { key: "profile", label: "Profile", icon: "📊" },
+        ].map((tab) => (
+          <Pressable
+            key={tab.key}
+            style={[styles.navItem, activeTab === tab.key && styles.navItemActive]}
+            onPress={() => setActiveTab(tab.key as NavTab)}
+          >
+            <Text style={styles.navIcon}>{tab.icon}</Text>
+            <Text style={[styles.navLabel, activeTab === tab.key && styles.navLabelActive]}>{tab.label}</Text>
           </Pressable>
-          <Pressable style={styles.navItem} onPress={() => setActiveTab("schemes")}>
-            <Text style={[styles.navIcon, activeTab === "schemes" && styles.navIconActive]}>🎯</Text>
-            <Text style={[styles.navLabel, activeTab === "schemes" && styles.navLabelActive]}>Schemes</Text>
-          </Pressable>
-          <Pressable style={styles.navItem} onPress={() => setActiveTab("applications")}>
-            <Text style={[styles.navIcon, activeTab === "applications" && styles.navIconActive]}>📄</Text>
-            <Text style={[styles.navLabel, activeTab === "applications" && styles.navLabelActive]}>Plans</Text>
-          </Pressable>
-          <Pressable style={styles.navItem} onPress={() => setActiveTab("profile")}>
-            <Text style={[styles.navIcon, activeTab === "profile" && styles.navIconActive]}>👤</Text>
-            <Text style={[styles.navLabel, activeTab === "profile" && styles.navLabelActive]}>Profile</Text>
-          </Pressable>
-        </View>
+        ))}
       </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  safeArea: { flex: 1, backgroundColor: "#f2f6fb" },
-  headerBar: {
-    backgroundColor: "#ffffff",
-    paddingHorizontal: 18,
-    paddingTop: 12,
-    paddingBottom: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: "#e1eaf3",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  brandRow: { flexDirection: "row", alignItems: "center", gap: 6 },
-  logoText: { color: "#13498a", fontSize: 22, fontWeight: "900", letterSpacing: -0.5 },
-  logoAccent: { color: "#e78322" },
-  stateTag: { backgroundColor: "#fff2e5", paddingHorizontal: 6, paddingVertical: 2, borderRadius: 6 },
-  stateTagText: { color: "#d96b00", fontSize: 9, fontWeight: "800", letterSpacing: 0.8 },
-  ownerText: { color: "#54708d", fontSize: 12, fontWeight: "700", marginTop: 2 },
+  safeArea: { flex: 1, backgroundColor: "#ffffff" },
+  authContainer: { flex: 1, padding: 24, justifyContent: "center" },
+  authLogo: { fontSize: 24, fontWeight: "800", color: "#0f766e", textAlign: "center", marginBottom: 6 },
+  authSubtitle: { fontSize: 13, color: "#64748b", textAlign: "center", marginBottom: 20 },
+  authInstruction: { fontSize: 14, fontWeight: "700", color: "#334155", marginBottom: 12 },
+  authInput: { borderWidth: 1, borderColor: "#cbd5e1", borderRadius: 8, padding: 12, fontSize: 14, marginBottom: 10, backgroundColor: "#f8fafc" },
+  authButton: { backgroundColor: "#0f766e", padding: 12, borderRadius: 8, alignItems: "center", marginTop: 8 },
+  authButtonText: { color: "#ffffff", fontWeight: "700", fontSize: 14 },
+  authToggleBtn: { marginTop: 14, alignItems: "center" },
+  authToggleText: { color: "#0f766e", fontSize: 12, fontWeight: "600" },
+  authErrorText: { color: "#dc2626", fontSize: 12, marginBottom: 8 },
 
-  langPicker: { flexDirection: "row", backgroundColor: "#eef4fb", borderRadius: 20, padding: 3 },
-  langChip: { paddingHorizontal: 9, paddingVertical: 4, borderRadius: 16 },
-  langChipActive: { backgroundColor: "#1760a8" },
-  langText: { fontSize: 11, fontWeight: "700", color: "#54708d" },
+  headerBar: { backgroundColor: "#ffffff", borderBottomWidth: 1, borderBottomColor: "#e5e7eb", paddingHorizontal: 16, paddingVertical: 10, flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
+  brandRow: { flexDirection: "row", alignItems: "center", gap: 8 },
+  logoText: { fontSize: 20, fontWeight: "800", color: "#0f766e" },
+  logoAccent: { color: "#ea580c" },
+  stateTag: { backgroundColor: "#ffedd5", paddingHorizontal: 6, paddingVertical: 2, borderRadius: 4 },
+  stateTagText: { fontSize: 9, fontWeight: "700", color: "#c2410c" },
+  ownerText: { fontSize: 11, color: "#4b5563", marginTop: 2 },
+  langPicker: { flexDirection: "row", backgroundColor: "#f3f4f6", borderRadius: 6, padding: 2 },
+  langChip: { paddingHorizontal: 8, paddingVertical: 4, borderRadius: 4 },
+  langChipActive: { backgroundColor: "#0f766e" },
+  langText: { fontSize: 11, fontWeight: "600", color: "#6b7280" },
   langTextActive: { color: "#ffffff" },
 
-  mainContainer: { flex: 1 },
-  tabContent: { flex: 1, padding: 14 },
-  bannerBox: { backgroundColor: "#1760a8", borderRadius: 18, padding: 14, marginBottom: 10 },
+  mainContainer: { flex: 1, backgroundColor: "#f8fafc" },
+  tabContent: { flex: 1, padding: 12 },
+  bannerBox: { backgroundColor: "#ffffff", borderRadius: 8, padding: 12, borderWidth: 1, borderColor: "#e2e8f0", marginBottom: 8 },
   bannerHeader: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
-  bannerTitle: { color: "#ffffff", fontSize: 16, fontWeight: "800" },
-  liveBadge: { backgroundColor: "#229954", paddingHorizontal: 6, paddingVertical: 2, borderRadius: 6 },
-  liveBadgeText: { color: "#ffffff", fontSize: 9, fontWeight: "900" },
-  bannerSub: { color: "#d5e5f5", fontSize: 13, lineHeight: 18, marginTop: 4 },
-
-  chipScroll: { marginTop: 10 },
-  presetChip: { backgroundColor: "rgba(255,255,255,0.2)", paddingHorizontal: 12, paddingVertical: 6, borderRadius: 12, marginRight: 8 },
-  presetChipText: { color: "#ffffff", fontSize: 12, fontWeight: "700" },
-
-  chatList: { paddingBottom: 12 },
-  chatBubble: { borderRadius: 16, padding: 14, marginBottom: 10, maxWidth: "86%" },
-  userBubble: { backgroundColor: "#1760a8", alignSelf: "flex-end", borderBottomRightRadius: 2 },
-  assistantBubble: { backgroundColor: "#ffffff", alignSelf: "flex-start", borderBottomLeftRadius: 2, borderWidth: 1, borderColor: "#e1eaf3" },
-  chatText: { fontSize: 15, lineHeight: 21 },
+  bannerTitle: { fontSize: 14, fontWeight: "700", color: "#0f766e" },
+  liveBadge: { backgroundColor: "#dcfce7", paddingHorizontal: 6, paddingVertical: 2, borderRadius: 4 },
+  liveBadgeText: { fontSize: 9, fontWeight: "700", color: "#15803d" },
+  bannerSub: { fontSize: 11, color: "#64748b", marginTop: 4, lineHeight: 15 },
+  chatList: { paddingVertical: 8 },
+  chatBubble: { maxWidth: "85%", padding: 10, borderRadius: 10, marginBottom: 8 },
+  userBubble: { alignSelf: "flex-end", backgroundColor: "#0f766e" },
+  assistantBubble: { alignSelf: "flex-start", backgroundColor: "#ffffff", borderWidth: 1, borderColor: "#e2e8f0" },
+  chatText: { fontSize: 13, lineHeight: 18 },
   userChatText: { color: "#ffffff" },
-  assistantChatText: { color: "#123963" },
-  chatTime: { fontSize: 10, color: "#8aa0b8", marginTop: 4, textAlign: "right" },
-
-  chatInputBar: { flexDirection: "row", gap: 8, paddingVertical: 8, alignItems: "center" },
-  micBtn: { width: 44, height: 44, borderRadius: 22, backgroundColor: "#ffffff", justifyContent: "center", alignItems: "center", borderWidth: 1, borderColor: "#dbe6f2" },
-  micBtnListening: { backgroundColor: "#ffe5e5", borderColor: "#e74c3c" },
+  assistantChatText: { color: "#1e293b" },
+  chatTime: { fontSize: 9, color: "#94a3b8", marginTop: 4, alignSelf: "flex-end" },
+  chatInputBar: { flexDirection: "row", alignItems: "center", backgroundColor: "#ffffff", borderRadius: 8, borderWidth: 1, borderColor: "#cbd5e1", paddingHorizontal: 8, paddingVertical: 4, marginTop: 4 },
+  micBtn: { padding: 6 },
+  micBtnListening: { backgroundColor: "#fee2e2", borderRadius: 16 },
   micBtnText: { fontSize: 18 },
-  chatTextInput: { flex: 1, backgroundColor: "#ffffff", borderRadius: 14, paddingHorizontal: 14, paddingVertical: 11, fontSize: 14, borderWidth: 1, borderColor: "#dbe6f2", color: "#123963" },
-  sendBtn: { backgroundColor: "#e78322", borderRadius: 14, paddingHorizontal: 16, height: 44, justifyContent: "center", alignItems: "center" },
-  sendBtnText: { color: "#ffffff", fontSize: 14, fontWeight: "800" },
+  chatTextInput: { flex: 1, fontSize: 13, paddingHorizontal: 8, paddingVertical: 6, color: "#0f172a" },
+  sendBtn: { backgroundColor: "#0f766e", paddingHorizontal: 12, paddingVertical: 6, borderRadius: 6 },
+  sendBtnText: { color: "#ffffff", fontWeight: "700", fontSize: 12 },
 
-  sectionHeader: { color: "#123963", fontSize: 20, fontWeight: "800" },
-  sectionSub: { color: "#54708d", fontSize: 13, marginBottom: 12, marginTop: 2 },
+  sectionHeader: { fontSize: 16, fontWeight: "800", color: "#0f172a" },
+  sectionSub: { fontSize: 11, color: "#64748b", marginBottom: 10 },
+  searchBar: { backgroundColor: "#ffffff", borderRadius: 6, borderWidth: 1, borderColor: "#cbd5e1", paddingHorizontal: 12, paddingVertical: 8, fontSize: 13, marginBottom: 10 },
 
-  searchBar: { backgroundColor: "#ffffff", borderRadius: 12, paddingHorizontal: 14, paddingVertical: 10, fontSize: 14, borderWidth: 1, borderColor: "#dbe6f2", color: "#123963", marginBottom: 10 },
-  filterRow: { flexDirection: "row", gap: 8, marginBottom: 14 },
-  filterChip: { backgroundColor: "#ffffff", paddingHorizontal: 12, paddingVertical: 7, borderRadius: 10, borderWidth: 1, borderColor: "#dbe6f2" },
-  filterChipActive: { backgroundColor: "#1760a8", borderColor: "#1760a8" },
-  filterChipText: { color: "#54708d", fontSize: 12, fontWeight: "700" },
-  filterChipTextActive: { color: "#ffffff" },
+  schemeCard: { backgroundColor: "#ffffff", borderRadius: 8, padding: 12, borderWidth: 1, borderColor: "#e2e8f0", marginBottom: 10 },
+  schemeBadgeRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 6 },
+  eligibleBadge: { backgroundColor: "#dcfce7", paddingHorizontal: 8, paddingVertical: 3, borderRadius: 4 },
+  eligibleBadgeText: { fontSize: 10, fontWeight: "700", color: "#15803d" },
+  subsidyBadge: { backgroundColor: "#ffedd5", paddingHorizontal: 8, paddingVertical: 3, borderRadius: 4 },
+  subsidyBadgeText: { fontSize: 10, fontWeight: "800", color: "#c2410c" },
+  schemeTitle: { fontSize: 14, fontWeight: "700", color: "#0f172a", marginBottom: 2 },
+  schemeOrg: { fontSize: 11, color: "#64748b", marginBottom: 6 },
+  schemeExplain: { fontSize: 12, color: "#334155", lineHeight: 16, marginBottom: 8 },
+  schemeActionRow: { flexDirection: "row", gap: 8 },
+  actionBtnOutline: { flex: 1, borderWidth: 1, borderColor: "#0f766e", paddingVertical: 6, borderRadius: 6, alignItems: "center" },
+  actionBtnOutlineText: { color: "#0f766e", fontSize: 11, fontWeight: "700" },
+  actionBtnSolid: { flex: 1, backgroundColor: "#0f766e", paddingVertical: 6, borderRadius: 6, alignItems: "center" },
+  actionBtnSolidText: { color: "#ffffff", fontSize: 11, fontWeight: "700" },
 
-  schemeCard: { backgroundColor: "#ffffff", borderRadius: 18, padding: 16, marginBottom: 12, borderWidth: 1, borderColor: "#e1eaf3" },
-  schemeBadgeRow: { flexDirection: "row", gap: 8, marginBottom: 8 },
-  eligibleBadge: { backgroundColor: "#e4f4e9", paddingHorizontal: 9, paddingVertical: 3, borderRadius: 6 },
-  eligibleBadgeText: { color: "#227344", fontSize: 11, fontWeight: "800" },
-  subsidyBadge: { backgroundColor: "#fff2e5", paddingHorizontal: 9, paddingVertical: 3, borderRadius: 6 },
-  subsidyBadgeText: { color: "#d96b00", fontSize: 11, fontWeight: "800" },
-  schemeTitle: { color: "#123963", fontSize: 17, fontWeight: "800" },
-  schemeOrg: { color: "#6a85a4", fontSize: 12, marginTop: 2, marginBottom: 8 },
-  schemeExplain: { color: "#355575", fontSize: 14, lineHeight: 20 },
-  benefitText: { color: "#1760a8", fontSize: 14, fontWeight: "800", marginTop: 8 },
-  schemeActionRow: { flexDirection: "row", gap: 10, marginTop: 12 },
-  actionBtnOutline: { flex: 1, borderColor: "#1760a8", borderWidth: 1, borderRadius: 10, paddingVertical: 9, alignItems: "center" },
-  actionBtnOutlineText: { color: "#1760a8", fontSize: 13, fontWeight: "800" },
-  actionBtnSolid: { backgroundColor: "#e78322", borderRadius: 10, paddingHorizontal: 16, paddingVertical: 9, justifyContent: "center" },
-  actionBtnSolidText: { color: "#ffffff", fontSize: 13, fontWeight: "800" },
+  marketplaceCard: { backgroundColor: "#ffffff", borderRadius: 8, padding: 12, borderWidth: 1, borderColor: "#e2e8f0", marginBottom: 8 },
+  mktBadgeText: { fontSize: 10, color: "#1d4ed8", fontWeight: "700", backgroundColor: "#eff6ff", paddingHorizontal: 6, paddingVertical: 2, borderRadius: 4 },
+  commissionText: { fontSize: 10, fontWeight: "700", color: "#16a34a" },
 
-  appCard: { backgroundColor: "#ffffff", borderRadius: 18, padding: 16, marginBottom: 12, borderWidth: 1, borderColor: "#e1eaf3" },
-  appHeaderRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
-  appTitle: { color: "#123963", fontSize: 16, fontWeight: "800", flex: 1 },
-  statusPill: { backgroundColor: "#eaf2fb", paddingHorizontal: 9, paddingVertical: 3, borderRadius: 6 },
-  statusPillText: { color: "#1760a8", fontSize: 10, fontWeight: "800" },
-  progressTrack: { height: 7, backgroundColor: "#eef4fb", borderRadius: 4, marginTop: 12, overflow: "hidden" },
-  progressBar: { height: "100%", backgroundColor: "#1760a8" },
-  progressText: { color: "#54708d", fontSize: 12, marginTop: 5, fontWeight: "700" },
-  docSectionTitle: { color: "#123963", fontSize: 13, fontWeight: "800", marginTop: 12, marginBottom: 6 },
-  checkRow: { flexDirection: "row", alignItems: "center", gap: 10, paddingVertical: 5 },
-  checkBox: { width: 20, height: 20, borderRadius: 5, borderWidth: 2, borderColor: "#a2b7cf", justifyContent: "center", alignItems: "center" },
-  checkBoxDone: { backgroundColor: "#1760a8", borderColor: "#1760a8" },
-  checkMark: { color: "#ffffff", fontSize: 12, fontWeight: "900" },
-  checkLabel: { color: "#355575", fontSize: 14 },
-  checkLabelDone: { color: "#a2b7cf", textDecorationLine: "line-through" },
+  toolCard: { backgroundColor: "#ffffff", borderRadius: 8, padding: 12, borderWidth: 1, borderColor: "#e2e8f0", marginBottom: 8 },
+  toolName: { fontSize: 13, fontWeight: "700", color: "#0f172a" },
+  toolType: { fontSize: 11, color: "#0f766e", fontWeight: "600", marginBottom: 4 },
+  toolBenefit: { fontSize: 11, color: "#475569" },
 
-  profileCard: { backgroundColor: "#ffffff", borderRadius: 18, padding: 18, borderWidth: 1, borderColor: "#e1eaf3" },
-  profileRow: { borderBottomWidth: 1, borderBottomColor: "#f0f6fb", paddingVertical: 11 },
-  profileLabel: { color: "#6a85a4", fontSize: 12 },
-  profileVal: { color: "#123963", fontSize: 15, fontWeight: "800", marginTop: 2 },
+  appCard: { backgroundColor: "#ffffff", borderRadius: 8, padding: 12, borderWidth: 1, borderColor: "#e2e8f0", marginBottom: 10 },
+  appTitle: { fontSize: 13, fontWeight: "700", color: "#0f172a" },
+  statusBadgeText: { fontSize: 11, fontWeight: "700", color: "#b45309", marginTop: 4 },
+
+  logisticsBox: { backgroundColor: "#ffffff", borderRadius: 8, padding: 12, borderWidth: 1, borderColor: "#e2e8f0" },
+  inputLabel: { fontSize: 11, fontWeight: "700", color: "#334155", marginBottom: 4, marginTop: 6 },
+  inputField: { backgroundColor: "#f8fafc", borderWidth: 1, borderColor: "#cbd5e1", borderRadius: 6, paddingHorizontal: 10, paddingVertical: 6, fontSize: 12 },
+  calcBtn: { backgroundColor: "#ea580c", borderRadius: 6, paddingVertical: 8, alignItems: "center", marginTop: 12 },
+  calcBtnText: { color: "#ffffff", fontSize: 12, fontWeight: "700" },
+  carrierCard: { backgroundColor: "#ffffff", borderRadius: 8, padding: 10, borderWidth: 1, borderColor: "#e2e8f0", marginBottom: 6 },
+  carrierName: { fontSize: 12, fontWeight: "700", color: "#0f172a" },
+
+  profileCard: { backgroundColor: "#ffffff", borderRadius: 8, padding: 14, borderWidth: 1, borderColor: "#e2e8f0" },
+  profileName: { fontSize: 15, fontWeight: "800", color: "#0f172a", marginBottom: 4 },
+  profileDetail: { fontSize: 12, color: "#475569", marginBottom: 4 },
 
   modalOverlay: { flex: 1, backgroundColor: "rgba(0,0,0,0.5)", justifyContent: "flex-end" },
-  modalContent: { backgroundColor: "#ffffff", borderTopLeftRadius: 24, borderTopRightRadius: 24, padding: 22, maxHeight: "80%" },
-  modalTitle: { color: "#123963", fontSize: 19, fontWeight: "800" },
-  modalOrg: { color: "#6a85a4", fontSize: 13, marginTop: 2, marginBottom: 10 },
-  modalDesc: { color: "#355575", fontSize: 14, lineHeight: 21 },
-  modalSectionHeading: { color: "#123963", fontSize: 14, fontWeight: "800", marginTop: 14, marginBottom: 6 },
-  modalDocItem: { color: "#54708d", fontSize: 13, lineHeight: 19 },
-  modalBtnRow: { flexDirection: "row", gap: 10, marginTop: 20 },
-  modalCloseBtn: { flex: 1, borderColor: "#a2b7cf", borderWidth: 1, borderRadius: 12, paddingVertical: 12, alignItems: "center" },
-  modalCloseBtnText: { color: "#54708d", fontSize: 14, fontWeight: "800" },
-  modalApplyBtn: { flex: 1, backgroundColor: "#e78322", borderRadius: 12, paddingVertical: 12, alignItems: "center" },
-  modalApplyBtnText: { color: "#ffffff", fontSize: 14, fontWeight: "800" },
+  modalContent: { backgroundColor: "#ffffff", borderTopLeftRadius: 16, borderTopRightRadius: 16, padding: 18, maxHeight: "80%" },
+  modalTitle: { fontSize: 16, fontWeight: "800", color: "#0f172a", marginBottom: 4 },
+  modalOrg: { fontSize: 11, color: "#64748b", marginBottom: 8 },
+  modalExplain: { fontSize: 12, color: "#334155", lineHeight: 16, marginBottom: 12 },
+  modalSubtitle: { fontSize: 12, fontWeight: "700", color: "#0f766e", marginBottom: 6 },
+  modalDocItem: { fontSize: 12, color: "#475569", marginBottom: 4 },
+  modalBtnRow: { flexDirection: "row", gap: 10, marginTop: 16 },
+  modalCloseBtn: { flex: 1, borderWidth: 1, borderColor: "#cbd5e1", paddingVertical: 8, borderRadius: 6, alignItems: "center" },
+  modalCloseBtnText: { fontSize: 12, fontWeight: "600", color: "#475569" },
+  modalApplyBtn: { flex: 1, backgroundColor: "#0f766e", paddingVertical: 8, borderRadius: 6, alignItems: "center" },
+  modalApplyBtnText: { color: "#ffffff", fontSize: 12, fontWeight: "700" },
 
-  bottomNav: { flexDirection: "row", backgroundColor: "#ffffff", borderTopWidth: 1, borderTopColor: "#e1eaf3", paddingVertical: 8 },
-  navItem: { flex: 1, alignItems: "center", justifyContent: "center" },
-  navIcon: { fontSize: 20, color: "#8aa0b8" },
-  navIconActive: { color: "#1760a8" },
-  navLabel: { fontSize: 11, fontWeight: "700", color: "#8aa0b8", marginTop: 2 },
-  navLabelActive: { color: "#1760a8" },
+  bottomNav: { flexDirection: "row", borderTopWidth: 1, borderTopColor: "#e2e8f0", backgroundColor: "#ffffff", paddingVertical: 6 },
+  navItem: { flex: 1, alignItems: "center", paddingVertical: 4 },
+  navItemActive: { borderTopWidth: 2, borderTopColor: "#0f766e" },
+  navIcon: { fontSize: 16, marginBottom: 2 },
+  navLabel: { fontSize: 9, fontWeight: "600", color: "#94a3b8" },
+  navLabelActive: { color: "#0f766e", fontWeight: "700" },
 });

@@ -1,0 +1,359 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b132b" />
+      <stop offset="50%" stop-color="#1c2541" />
+      <stop offset="100%" stop-color="#0b132b" />
+    </linearGradient>
+    <linearGradient id="screenGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f8fafc" />
+    </linearGradient>
+    <linearGradient id="headerGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ea580c" />
+      <stop offset="100%" stop-color="#c2410c" />
+    </linearGradient>
+    <linearGradient id="headerGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#059669" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="headerGrad3" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#0369a1" />
+    </linearGradient>
+    <linearGradient id="headerGrad4" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7c3aed" />
+      <stop offset="100%" stop-color="#6d28d9" />
+    </linearGradient>
+    <filter id="phoneShadow" x="-10%" y="-10%" width="125%" height="125%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.45" />
+    </filter>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="1440" height="900" fill="url(#bgGrad)" />
+
+  <!-- Grid decoration lines -->
+  <g stroke="#ffffff" stroke-opacity="0.04" stroke-width="1">
+    <line x1="0" y1="150" x2="1440" y2="150" />
+    <line x1="0" y1="300" x2="1440" y2="300" />
+    <line x1="0" y1="450" x2="1440" y2="450" />
+    <line x1="0" y1="600" x2="1440" y2="600" />
+    <line x1="0" y1="750" x2="1440" y2="750" />
+    <line x1="360" y1="0" x2="360" y2="900" />
+    <line x1="720" y1="0" x2="720" y2="900" />
+    <line x1="1080" y1="0" x2="1080" y2="900" />
+  </g>
+
+  <!-- Main Title & Subtitle -->
+  <text x="720" y="55" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="800" fill="#ffffff" text-anchor="middle" letter-spacing="0.5">🌾 VyaparMarg (व्यापारमार्ग) — Native Android Application Interface</text>
+  <text x="720" y="85" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" fill="#94a3b8" text-anchor="middle">Empowering Rural Maharashtra Entrepreneurs with Multilingual Voice AI, Verified Schemes &amp; Digital Tooling</text>
+
+  <!-- ==================== PHONE 1: VOICE ASSISTANT & PROFILE ==================== -->
+  <g transform="translate(60, 115)" filter="url(#phoneShadow)">
+    <!-- Device Outer Body -->
+    <rect width="290" height="660" rx="36" fill="#1e293b" stroke="#334155" stroke-width="3" />
+    <!-- Screen Glass -->
+    <rect x="8" y="8" width="274" height="644" rx="30" fill="url(#screenGrad)" />
+    <!-- Dynamic Island / Speaker Notch -->
+    <rect x="95" y="16" width="100" height="18" rx="9" fill="#0f172a" />
+    <circle cx="175" cy="25" r="4" fill="#1e293b" />
+
+    <!-- App Header -->
+    <rect x="8" y="44" width="274" height="60" fill="url(#headerGrad1)" />
+    <text x="24" y="70" font-family="sans-serif" font-size="14" font-weight="800" fill="#ffffff">व्यापारमार्ग | VyaparMarg</text>
+    <text x="24" y="88" font-family="sans-serif" font-size="11" fill="#ffedd5">📍 सांगली (सावित्री महिला बचत गट)</text>
+    <rect x="220" y="60" width="50" height="24" rx="12" fill="#ffffff" fill-opacity="0.2" />
+    <text x="245" y="76" font-family="sans-serif" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">मराठी</text>
+
+    <!-- Content: Marathi Conversational UI -->
+    <text x="24" y="125" font-family="sans-serif" font-size="12" font-weight="700" fill="#0f172a">ध्वनी सहाय्यक (Voice Assistant)</text>
+    
+    <!-- Assistant Speech Bubble -->
+    <rect x="20" y="138" width="250" height="80" rx="12" fill="#fff7ed" stroke="#fdba74" stroke-width="1" />
+    <text x="30" y="158" font-family="sans-serif" font-size="11" font-weight="600" fill="#c2410c">🤖 व्यापारमार्ग मित्र:</text>
+    <text x="30" y="176" font-family="sans-serif" font-size="10.5" fill="#334155">"नमस्कार सविता ताई! तुमचा हळद व</text>
+    <text x="30" y="192" font-family="sans-serif" font-size="10.5" fill="#334155">काजू प्रक्रिया व्यवसाय वाढवण्यासाठी</text>
+    <text x="30" y="208" font-family="sans-serif" font-size="10.5" fill="#334155">शासकीय अनुदान योजना शोधूया!"</text>
+
+    <!-- User Audio Recording Wave Card -->
+    <rect x="20" y="230" width="250" height="95" rx="12" fill="#0f172a" />
+    <circle cx="50" cy="275" r="18" fill="#ea580c" />
+    <text x="50" y="281" font-size="16" text-anchor="middle" fill="#ffffff">🎙️</text>
+    <text x="80" y="260" font-family="sans-serif" font-size="11" font-weight="700" fill="#fed7aa">ध्वनी नोंदणी सुरू आहे...</text>
+    <!-- Wave bars -->
+    <rect x="80" y="272" width="4" height="16" rx="2" fill="#ea580c" />
+    <rect x="88" y="267" width="4" height="26" rx="2" fill="#f97316" />
+    <rect x="96" y="262" width="4" height="36" rx="2" fill="#fb923c" />
+    <rect x="104" y="268" width="4" height="24" rx="2" fill="#f97316" />
+    <rect x="112" y="274" width="4" height="12" rx="2" fill="#ea580c" />
+    <rect x="120" y="265" width="4" height="30" rx="2" fill="#fb923c" />
+    <rect x="128" y="270" width="4" height="20" rx="2" fill="#f97316" />
+    <text x="80" y="312" font-family="sans-serif" font-size="9" fill="#94a3b8">"आम्हाला पॅकेजिंगसाठी यंत्र हवे आहे..."</text>
+
+    <!-- Extracted Profile Parameters (Zero Fake Data) -->
+    <text x="24" y="348" font-family="sans-serif" font-size="11" font-weight="700" fill="#475569">ओळखलेले व्यवसाय तपशील:</text>
+    <rect x="20" y="358" width="250" height="180" rx="10" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" />
+    
+    <g transform="translate(30, 375)">
+      <text x="0" y="0" font-family="sans-serif" font-size="10" fill="#64748b">व्यवसाय क्षेत्र:</text>
+      <text x="140" y="0" font-family="sans-serif" font-size="10" font-weight="700" fill="#0f172a">कृषी प्रक्रिया (Agro)</text>
+      <line x1="0" y1="12" x2="230" y2="12" stroke="#f1f5f9" />
+      
+      <text x="0" y="30" font-family="sans-serif" font-size="10" fill="#64748b">स्थान / जिल्हा:</text>
+      <text x="140" y="30" font-family="sans-serif" font-size="10" font-weight="700" fill="#0f172a">सांगली (ग्रामीण)</text>
+      <line x1="0" y1="42" x2="230" y2="42" stroke="#f1f5f9" />
+
+      <text x="0" y="60" font-family="sans-serif" font-size="10" fill="#64748b">वार्षिक उलाढाल:</text>
+      <text x="140" y="60" font-family="sans-serif" font-size="10" font-weight="700" fill="#0f172a">₹18,00,000</text>
+      <line x1="0" y1="72" x2="230" y2="72" stroke="#f1f5f9" />
+
+      <text x="0" y="90" font-family="sans-serif" font-size="10" fill="#64748b">मालकी स्वरूप:</text>
+      <text x="140" y="90" font-family="sans-serif" font-size="10" font-weight="700" fill="#0f172a">महिला बचत गट (SHG)</text>
+      <line x1="0" y1="102" x2="230" y2="102" stroke="#f1f5f9" />
+
+      <text x="0" y="120" font-family="sans-serif" font-size="10" fill="#64748b">स्थानिक क्लस्टर:</text>
+      <text x="140" y="120" font-family="sans-serif" font-size="10" font-weight="700" fill="#059669">सांगली हळद क्लस्टर ✓</text>
+    </g>
+
+    <!-- Bottom Action Button -->
+    <rect x="20" y="555" width="250" height="42" rx="10" fill="#ea580c" />
+    <text x="145" y="581" font-family="sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">पात्र योजना शोधा (Find Schemes) →</text>
+    
+    <!-- Screen 1 Label -->
+    <text x="145" y="630" font-family="sans-serif" font-size="11" font-weight="600" fill="#64748b" text-anchor="middle">स्क्रीन १: व्हॉइस इनपुट व प्रोफाइल</text>
+  </g>
+
+  <!-- ==================== PHONE 2: SCHEME RECOMMENDATIONS ==================== -->
+  <g transform="translate(395, 115)" filter="url(#phoneShadow)">
+    <rect width="290" height="660" rx="36" fill="#1e293b" stroke="#334155" stroke-width="3" />
+    <rect x="8" y="8" width="274" height="644" rx="30" fill="url(#screenGrad)" />
+    <rect x="95" y="16" width="100" height="18" rx="9" fill="#0f172a" />
+    <circle cx="175" cy="25" r="4" fill="#1e293b" />
+
+    <!-- App Header -->
+    <rect x="8" y="44" width="274" height="60" fill="url(#headerGrad2)" />
+    <text x="24" y="70" font-family="sans-serif" font-size="14" font-weight="800" fill="#ffffff">शिफारस केलेल्या योजना</text>
+    <text x="24" y="88" font-family="sans-serif" font-size="11" fill="#d1fae5">३ पात्र योजना उपलब्ध (Verified)</text>
+
+    <!-- Primary Scheme Card: CMEGP -->
+    <rect x="18" y="118" width="254" height="230" rx="12" fill="#ffffff" stroke="#10b981" stroke-width="1.5" />
+    <rect x="18" y="118" width="254" height="30" rx="12" fill="#ecfdf5" />
+    <text x="30" y="138" font-family="sans-serif" font-size="11" font-weight="700" fill="#047857">उच्च पात्रता: 92% जुळणी स्कोअर</text>
+    <rect x="210" y="123" width="54" height="20" rx="6" fill="#10b981" />
+    <text x="237" y="137" font-family="sans-serif" font-size="10" font-weight="800" fill="#ffffff" text-anchor="middle">पात्र ✓</text>
+
+    <text x="30" y="170" font-family="sans-serif" font-size="13" font-weight="800" fill="#0f172a">CMEGP योजना</text>
+    <text x="30" y="186" font-family="sans-serif" font-size="10" fill="#64748b">मुख्यमंत्री रोजगार निर्मिती कार्यक्रम</text>
+
+    <!-- Subsidy Badge Highlighting -->
+    <rect x="28" y="198" width="234" height="48" rx="8" fill="#f0fdf4" stroke="#bbf7d0" />
+    <text x="38" y="216" font-family="sans-serif" font-size="10" font-weight="700" fill="#15803d">अनुदान प्रमाण (Subsidy): ३५%</text>
+    <text x="38" y="234" font-family="sans-serif" font-size="12" font-weight="800" fill="#166534">कमाल ₹८,७५,००० पर्यंत अनुदान</text>
+
+    <!-- Cluster Boost explanation -->
+    <rect x="28" y="254" width="234" height="36" rx="6" fill="#f8fafc" />
+    <text x="36" y="268" font-family="sans-serif" font-size="9" font-weight="600" fill="#334155">⚡ सांगली कृषी प्रक्रिया क्लस्टर बूस्ट</text>
+    <text x="36" y="280" font-family="sans-serif" font-size="8.5" fill="#64748b">ग्रामीण महिला उद्योजक प्राधान्य +15 गुण</text>
+
+    <!-- Scheme Card Actions -->
+    <rect x="28" y="298" width="112" height="36" rx="8" fill="#047857" />
+    <text x="84" y="320" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#ffffff" text-anchor="middle">कागदपत्रे तपासा</text>
+    <rect x="146" y="298" width="116" height="36" rx="8" fill="#f1f5f9" stroke="#cbd5e1" />
+    <text x="204" y="320" font-family="sans-serif" font-size="10" font-weight="600" fill="#334155" text-anchor="middle">तपशील पहा</text>
+
+    <!-- Secondary Scheme Card: PMEGP -->
+    <rect x="18" y="360" width="254" height="150" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" />
+    <text x="30" y="385" font-family="sans-serif" font-size="12" font-weight="700" fill="#0f172a">PMEGP - पंतप्रधान रोजगार योजना</text>
+    <text x="30" y="401" font-family="sans-serif" font-size="9.5" fill="#64748b">८८% जुळणी | ३५% ग्रामीण महिला अनुदान</text>
+    <rect x="28" y="413" width="234" height="42" rx="6" fill="#f8fafc" />
+    <text x="38" y="430" font-family="sans-serif" font-size="9" fill="#334155">प्रकल्प मर्यादा: ₹२५ लाखांपर्यंत</text>
+    <text x="38" y="444" font-family="sans-serif" font-size="9" fill="#059669">पात्रता: किमान ८ वी उत्तीर्ण, ग्रामीण अधिवास</text>
+    <rect x="28" y="465" width="234" height="32" rx="6" fill="#f1f5f9" />
+    <text x="145" y="485" font-family="sans-serif" font-size="10" font-weight="600" fill="#475569" text-anchor="middle">प्लॅनमध्ये जोडा (Save to Plan) +</text>
+
+    <!-- Tertiary Scheme Card Preview: Mudra Tarun -->
+    <rect x="18" y="520" width="254" height="75" rx="12" fill="#ffffff" stroke="#e2e8f0" />
+    <text x="30" y="542" font-family="sans-serif" font-size="11" font-weight="700" fill="#0f172a">मुद्रा तरुण योजना (Mudra Tarun)</text>
+    <text x="30" y="558" font-family="sans-serif" font-size="9.5" fill="#64748b">₹५ ते ₹१० लाख खेळते भांडवल कर्ज (Zero Collateral)</text>
+    <text x="30" y="574" font-family="sans-serif" font-size="9" font-weight="600" fill="#0284c7">पात्रता: चालू व्यवसाय अस्तित्व पुरावा</text>
+
+    <!-- Screen 2 Label -->
+    <text x="145" y="630" font-family="sans-serif" font-size="11" font-weight="600" fill="#64748b" text-anchor="middle">स्क्रीन २: नियमाधारित योजना शिफारस</text>
+  </g>
+
+  <!-- ==================== PHONE 3: DOCUMENT CHECKLIST ==================== -->
+  <g transform="translate(730, 115)" filter="url(#phoneShadow)">
+    <rect width="290" height="660" rx="36" fill="#1e293b" stroke="#334155" stroke-width="3" />
+    <rect x="8" y="8" width="274" height="644" rx="30" fill="url(#screenGrad)" />
+    <rect x="95" y="16" width="100" height="18" rx="9" fill="#0f172a" />
+    <circle cx="175" cy="25" r="4" fill="#1e293b" />
+
+    <!-- App Header -->
+    <rect x="8" y="44" width="274" height="60" fill="url(#headerGrad3)" />
+    <text x="24" y="70" font-family="sans-serif" font-size="14" font-weight="800" fill="#ffffff">कागदपत्रे तपासणी सूची</text>
+    <text x="24" y="88" font-family="sans-serif" font-size="11" fill="#e0f2fe">CMEGP अर्जासाठी ६ आवश्यक कागदपत्रे</text>
+
+    <!-- Intermediary Bypass Warning Banner -->
+    <rect x="18" y="115" width="254" height="52" rx="8" fill="#eff6ff" stroke="#bfdbfe" />
+    <text x="28" y="132" font-family="sans-serif" font-size="10" font-weight="700" fill="#1d4ed8">💡 दलालांशिवाय थेट अर्ज करा</text>
+    <text x="28" y="146" font-family="sans-serif" font-size="9" fill="#334155">शासकीय पोर्टलवरून कागदपत्रे मोफत मिळवा.</text>
+    <text x="28" y="158" font-family="sans-serif" font-size="9" font-weight="700" fill="#059669">बचत: अंदाजे ₹१,५०० ते ₹२,५०० दलाल फी</text>
+
+    <!-- Checklist Item 1: Aadhaar -->
+    <g transform="translate(18, 178)">
+      <rect width="254" height="54" rx="8" fill="#ffffff" stroke="#e2e8f0" />
+      <circle cx="20" cy="27" r="10" fill="#dcfce7" />
+      <text x="20" y="31" font-size="11" text-anchor="middle" fill="#16a34a">✓</text>
+      <text x="38" y="22" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#0f172a">आधार कार्ड (Aadhaar Card)</text>
+      <text x="38" y="38" font-family="sans-serif" font-size="9" fill="#64748b">मोबाईल नंबर लिंक असणे आवश्यक</text>
+      <rect x="195" y="18" width="50" height="20" rx="4" fill="#f1f5f9" />
+      <text x="220" y="31" font-family="sans-serif" font-size="8.5" font-weight="600" fill="#475569" text-anchor="middle">तयार</text>
+    </g>
+
+    <!-- Checklist Item 2: Udyam -->
+    <g transform="translate(18, 240)">
+      <rect width="254" height="54" rx="8" fill="#ffffff" stroke="#e2e8f0" />
+      <circle cx="20" cy="27" r="10" fill="#dcfce7" />
+      <text x="20" y="31" font-size="11" text-anchor="middle" fill="#16a34a">✓</text>
+      <text x="38" y="22" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#0f172a">उद्यम नोंदणी (Udyam Cert)</text>
+      <text x="38" y="38" font-family="sans-serif" font-size="9" fill="#0284c7">udyamregistration.gov.in (मोफत)</text>
+      <rect x="195" y="18" width="50" height="20" rx="4" fill="#dbeafe" />
+      <text x="220" y="31" font-family="sans-serif" font-size="8.5" font-weight="600" fill="#0284c7" text-anchor="middle">पोर्टल लिंक</text>
+    </g>
+
+    <!-- Checklist Item 3: 7/12 Land Record -->
+    <g transform="translate(18, 302)">
+      <rect width="254" height="54" rx="8" fill="#ffffff" stroke="#e2e8f0" />
+      <circle cx="20" cy="27" r="10" fill="#fef9c3" />
+      <text x="20" y="31" font-size="11" text-anchor="middle" fill="#ca8a04">!</text>
+      <text x="38" y="22" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#0f172a">७/१२ उतारा किंवा भाडेकरार</text>
+      <text x="38" y="38" font-family="sans-serif" font-size="9" fill="#0284c7">mahabhulekh.maharashtra.gov.in</text>
+      <rect x="195" y="18" width="50" height="20" rx="4" fill="#fef3c7" />
+      <text x="220" y="31" font-family="sans-serif" font-size="8.5" font-weight="600" fill="#b45309" text-anchor="middle">आवश्यक</text>
+    </g>
+
+    <!-- Checklist Item 4: DPR -->
+    <g transform="translate(18, 364)">
+      <rect width="254" height="54" rx="8" fill="#ffffff" stroke="#e2e8f0" />
+      <circle cx="20" cy="27" r="10" fill="#fef9c3" />
+      <text x="20" y="31" font-size="11" text-anchor="middle" fill="#ca8a04">!</text>
+      <text x="38" y="22" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#0f172a">सविस्तर प्रकल्प अहवाल (DPR)</text>
+      <text x="38" y="38" font-family="sans-serif" font-size="9" fill="#64748b">₹२५ लाख प्रकल्प आराखडा</text>
+      <rect x="195" y="18" width="50" height="20" rx="4" fill="#ede9fe" />
+      <text x="220" y="31" font-family="sans-serif" font-size="8.5" font-weight="600" fill="#7c3aed" text-anchor="middle">नमुना ड्राफ्ट</text>
+    </g>
+
+    <!-- Checklist Item 5: Caste & Domicile -->
+    <g transform="translate(18, 426)">
+      <rect width="254" height="54" rx="8" fill="#ffffff" stroke="#e2e8f0" />
+      <circle cx="20" cy="27" r="10" fill="#dcfce7" />
+      <text x="20" y="31" font-size="11" text-anchor="middle" fill="#16a34a">✓</text>
+      <text x="38" y="22" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#0f172a">अधिवास प्रमाणपत्र (Domicile)</text>
+      <text x="38" y="38" font-family="sans-serif" font-size="9" fill="#0284c7">aaplesarkar.mahaonline.gov.in</text>
+      <rect x="195" y="18" width="50" height="20" rx="4" fill="#f1f5f9" />
+      <text x="220" y="31" font-family="sans-serif" font-size="8.5" font-weight="600" fill="#475569" text-anchor="middle">तयार</text>
+    </g>
+
+    <!-- Save Plan & Extension Sync CTA -->
+    <rect x="18" y="495" width="254" height="42" rx="10" fill="#0284c7" />
+    <text x="145" y="521" font-family="sans-serif" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">अर्ज योजना जतन करा (Save Plan)</text>
+
+    <!-- Extension sync hint -->
+    <rect x="18" y="546" width="254" height="42" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-dasharray="3 3" />
+    <text x="145" y="564" font-family="sans-serif" font-size="9.5" font-weight="700" fill="#334155" text-anchor="middle">🌐 ब्राऊझर एक्स्टेन्शन सोबत सिंक</text>
+    <text x="145" y="578" font-family="sans-serif" font-size="8.5" fill="#64748b" text-anchor="middle">शासकीय संगणक केंद्रावरून १-क्लिक सुरक्षित भरणा</text>
+
+    <!-- Screen 3 Label -->
+    <text x="145" y="630" font-family="sans-serif" font-size="11" font-weight="600" fill="#64748b" text-anchor="middle">स्क्रीन ३: कागदपत्रे व मध्यस्थ बायपास</text>
+  </g>
+
+  <!-- ==================== PHONE 4: MARKETPLACES & INTEGRATIONS ==================== -->
+  <g transform="translate(1065, 115)" filter="url(#phoneShadow)">
+    <rect width="290" height="660" rx="36" fill="#1e293b" stroke="#334155" stroke-width="3" />
+    <rect x="8" y="8" width="274" height="644" rx="30" fill="url(#screenGrad)" />
+    <rect x="95" y="16" width="100" height="18" rx="9" fill="#0f172a" />
+    <circle cx="175" cy="25" r="4" fill="#1e293b" />
+
+    <!-- App Header -->
+    <rect x="8" y="44" width="274" height="60" fill="url(#headerGrad4)" />
+    <text x="24" y="70" font-family="sans-serif" font-size="14" font-weight="800" fill="#ffffff">बाजारपेठ व डिजिटल साधने</text>
+    <text x="24" y="88" font-family="sans-serif" font-size="11" fill="#ede9fe">ग्रामीण उद्योगांचा विस्तार</text>
+
+    <!-- Marketplace Section -->
+    <text x="24" y="125" font-family="sans-serif" font-size="11" font-weight="700" fill="#0f172a">शिफारस केलेल्या ई-बाजारपेठा:</text>
+
+    <!-- Marketplace 1: ONDC -->
+    <g transform="translate(18, 136)">
+      <rect width="254" height="52" rx="8" fill="#ffffff" stroke="#e2e8f0" />
+      <rect x="12" y="12" width="28" height="28" rx="6" fill="#e0e7ff" />
+      <text x="26" y="30" font-size="12" text-anchor="middle" fill="#4338ca">🛒</text>
+      <text x="48" y="24" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#0f172a">ONDC ग्रामीण नेटवर्क</text>
+      <text x="48" y="38" font-family="sans-serif" font-size="8.5" fill="#64748b">शून्य कमिशन, थेट ग्राहक विक्री</text>
+      <rect x="195" y="16" width="50" height="20" rx="4" fill="#e0e7ff" />
+      <text x="220" y="29" font-family="sans-serif" font-size="8" font-weight="700" fill="#4338ca" text-anchor="middle">जोडा</text>
+    </g>
+
+    <!-- Marketplace 2: GeM -->
+    <g transform="translate(18, 196)">
+      <rect width="254" height="52" rx="8" fill="#ffffff" stroke="#e2e8f0" />
+      <rect x="12" y="12" width="28" height="28" rx="6" fill="#fef3c7" />
+      <text x="26" y="30" font-size="12" text-anchor="middle" fill="#d97706">🏛️</text>
+      <text x="48" y="24" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#0f172a">GeM सरकारी ई-मार्केट</text>
+      <text x="48" y="38" font-family="sans-serif" font-size="8.5" fill="#64748b">शासकीय खरेदीमध्ये महिला SHG प्राधान्य</text>
+      <rect x="195" y="16" width="50" height="20" rx="4" fill="#fef3c7" />
+      <text x="220" y="29" font-family="sans-serif" font-size="8" font-weight="700" fill="#b45309" text-anchor="middle">नोंदणी</text>
+    </g>
+
+    <!-- Module 2 Integration: Student 2 Logistics Contract -->
+    <g transform="translate(18, 260)">
+      <rect width="254" height="100" rx="10" fill="#fffbeb" stroke="#fcd34d" stroke-width="1.2" />
+      <text x="14" y="20" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#92400e">🚚 वाहतूक प्लॅनर (Student 2 कॉन्ट्रॅक्ट)</text>
+      <text x="14" y="36" font-family="sans-serif" font-size="9" fill="#78350f">मार्ग: सांगली ➔ नवी मुंबई APMC मार्केट</text>
+      <rect x="14" y="44" width="226" height="46" rx="6" fill="#ffffff" stroke="#fde68a" />
+      <text x="24" y="60" font-family="sans-serif" font-size="9.5" font-weight="600" fill="#0f172a">अंदाजे अंतर: ३६० किमी | ३ दिवस</text>
+      <text x="24" y="78" font-family="sans-serif" font-size="11" font-weight="800" fill="#15803d">एकत्रित वाहतूक दर: ₹२,४५० (बचत: ₹१,२००)</text>
+    </g>
+
+    <!-- Module 3 Integration: Student 3 Dashboard Contract -->
+    <g transform="translate(18, 372)">
+      <rect width="254" height="100" rx="10" fill="#f0fdfa" stroke="#5eead4" stroke-width="1.2" />
+      <text x="14" y="20" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#0f766e">📈 वाढ डॅशबोर्ड (Student 3 कॉन्ट्रॅक्ट)</text>
+      <text x="14" y="36" font-family="sans-serif" font-size="9" fill="#115e59">सांगली कृषी प्रक्रिया व्यवसाय वाढ अंदाज</text>
+      <rect x="14" y="44" width="226" height="46" rx="6" fill="#ffffff" stroke="#ccfbf1" />
+      <text x="24" y="60" font-family="sans-serif" font-size="9.5" font-weight="600" fill="#0f172a">अनुदान मंजुरीनंतर महसूल वाढ: +२८%</text>
+      <text x="24" y="78" font-family="sans-serif" font-size="11" font-weight="800" fill="#0d9488">अपेक्षित वार्षिक नफा: ₹६,४०,०००</text>
+    </g>
+
+    <!-- Digital Accounting Tool: Khatabook -->
+    <g transform="translate(18, 484)">
+      <rect width="254" height="48" rx="8" fill="#ffffff" stroke="#e2e8f0" />
+      <rect x="10" y="10" width="28" height="28" rx="6" fill="#ede9fe" />
+      <text x="24" y="28" font-size="12" text-anchor="middle" fill="#7c3aed">📒</text>
+      <text x="46" y="22" font-family="sans-serif" font-size="10" font-weight="700" fill="#0f172a">खाताबुक (मराठी)</text>
+      <text x="46" y="34" font-family="sans-serif" font-size="8" fill="#64748b">स्थानिक उधारी व पावती व्यवस्थापन</text>
+      <rect x="195" y="14" width="50" height="20" rx="4" fill="#ede9fe" />
+      <text x="220" y="27" font-family="sans-serif" font-size="8" font-weight="700" fill="#7c3aed" text-anchor="middle">सुरू करा</text>
+    </g>
+
+    <!-- Bottom Nav bar mockup -->
+    <rect x="18" y="545" width="254" height="45" rx="10" fill="#1e293b" />
+    <text x="50" y="572" font-size="14" text-anchor="middle" fill="#94a3b8">🏠</text>
+    <text x="110" y="572" font-size="14" text-anchor="middle" fill="#94a3b8">📋</text>
+    <text x="170" y="572" font-size="14" text-anchor="middle" fill="#94a3b8">💬</text>
+    <text x="230" y="572" font-size="14" text-anchor="middle" fill="#38bdf8">🌐</text>
+
+    <!-- Screen 4 Label -->
+    <text x="145" y="630" font-family="sans-serif" font-size="11" font-weight="600" fill="#64748b" text-anchor="middle">स्क्रीन ४: बाजारपेठ व मॉड्युल एकत्रीकरण</text>
+  </g>
+
+  <!-- Bottom Legend / Standards Footer -->
+  <rect x="60" y="810" width="1320" height="55" rx="12" fill="#1e293b" stroke="#334155" />
+  <text x="80" y="842" font-family="sans-serif" font-size="12" font-weight="700" fill="#f8fafc">सुरक्षितता व डेटा मानके:</text>
+  <text x="235" y="842" font-family="sans-serif" font-size="12" fill="#94a3b8">🔒 ३-स्तरीय अखंड डेटा pipeline (Database Seed ➔ REST API ➔ React Native / Extension Cache)</text>
+  <text x="1060" y="842" font-family="sans-serif" font-size="12" font-weight="700" fill="#38bdf8">✓ शून्य बनावट/हार्डकोड स्कोअरिंग</text>
+</svg>

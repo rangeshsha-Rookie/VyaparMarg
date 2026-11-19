@@ -55,10 +55,14 @@ def recommend_schemes(
     if not profiles:
         raise LookupError("Business profile not found")
     profile = profiles[0]
+
+    # Merge profile columns with JSONB profile_data
+    merged_profile = {**profile, **(profile.get("profile_data") or {})}
+
     schemes = list_active_schemes(client)
     ranked = []
     for scheme in schemes:
-        result = evaluate_scheme(scheme, profile)
+        result = evaluate_scheme(scheme, merged_profile)
         ranked.append({"scheme_id": scheme["id"], "scheme": scheme, **result})
     order = {"eligible": 0, "needs_information": 1, "ineligible": 2}
     ranked.sort(key=lambda item: (order[item["eligibility_status"]], -item["score"], item["scheme"]["name"]))

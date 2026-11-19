@@ -1,0 +1,199 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 950" width="1440" height="950">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="clientGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a8a" />
+      <stop offset="100%" stop-color="#172554" />
+    </linearGradient>
+    <linearGradient id="apiGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#065f46" />
+      <stop offset="100%" stop-color="#064e3b" />
+    </linearGradient>
+    <linearGradient id="dbGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4c1d95" />
+      <stop offset="100%" stop-color="#2e1065" />
+    </linearGradient>
+    <linearGradient id="externalGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#7c2d12" />
+      <stop offset="100%" stop-color="#431407" />
+    </linearGradient>
+    <filter id="cardShadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000000" flood-opacity="0.3" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1440" height="950" fill="url(#bgGrad)" />
+
+  <!-- Title & Scope Header -->
+  <text x="720" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="800" fill="#ffffff" text-anchor="middle">🌾 VyaparMarg (व्यापारमार्ग) — End-to-End System Architecture</text>
+  <text x="720" y="75" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#94a3b8" text-anchor="middle">Hybrid Multi-Platform Architecture: 3-Tier Seed-to-Client Pipeline with Isolated Rule Engine &amp; Safe Extension Boundary</text>
+
+  <!-- ==================== TIER 3: CLIENT PLATFORMS ==================== -->
+  <g transform="translate(60, 110)" filter="url(#cardShadow)">
+    <rect width="1320" height="195" rx="14" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" />
+    <rect width="1320" height="38" rx="14" fill="url(#clientGrad)" />
+    <rect y="28" width="1320" height="10" fill="url(#clientGrad)" />
+    <text x="25" y="25" font-family="sans-serif" font-size="14" font-weight="800" fill="#ffffff">TIER 3: CLIENT-SIDE PLATFORMS &amp; USER TOUCHPOINTS (Zero Mock Scoring)</text>
+
+    <!-- Client 1: Native Mobile App -->
+    <g transform="translate(20, 50)">
+      <rect width="395" height="130" rx="10" fill="#0f172a" stroke="#334155" />
+      <text x="16" y="24" font-family="sans-serif" font-size="13" font-weight="700" fill="#38bdf8">📱 Native Android Mobile App (React Native / Expo)</text>
+      <text x="16" y="44" font-family="sans-serif" font-size="10.5" fill="#94a3b8">• Primary rural entrepreneur interface</text>
+      <text x="16" y="60" font-family="sans-serif" font-size="10.5" fill="#94a3b8">• Native Speech-to-Text &amp; Marathi Audio Synthesizer</text>
+      <text x="16" y="76" font-family="sans-serif" font-size="10.5" fill="#94a3b8">• Dynamic scheme cards with live subsidy calculation (15%-50%)</text>
+      <text x="16" y="92" font-family="sans-serif" font-size="10.5" fill="#94a3b8">• Persistent local cache via AsyncStorage (graceful offline handling)</text>
+      <text x="16" y="112" font-family="sans-serif" font-size="10" font-weight="700" fill="#22c55e">✓ Zero hardcoded dummy scores | Real Bearer JWT auth</text>
+    </g>
+
+    <!-- Client 2: Browser Extension -->
+    <g transform="translate(440, 50)">
+      <rect width="435" height="130" rx="10" fill="#0f172a" stroke="#334155" />
+      <text x="16" y="24" font-family="sans-serif" font-size="13" font-weight="700" fill="#38bdf8">🌐 Browser Extension (Chrome Manifest V3 Standalone)</text>
+      <text x="16" y="44" font-family="sans-serif" font-size="10.5" fill="#94a3b8">• Operates on MahaDBT, Aaple Sarkar, Udyam Registration &amp; PMEGP</text>
+      <text x="16" y="60" font-family="sans-serif" font-size="10.5" fill="#94a3b8">• Intelligent DOM field mapping with active form detection</text>
+      <text x="16" y="76" font-family="sans-serif" font-size="10.5" fill="#94a3b8">• Explicit preview modal before any autofill insertion</text>
+      <text x="16" y="92" font-family="sans-serif" font-size="10.5" fill="#ef4444">• Strict Security Boundary: Password, OTP &amp; CAPTCHA never touched</text>
+      <text x="16" y="112" font-family="sans-serif" font-size="10" font-weight="700" fill="#22c55e">✓ Synchronizes with saved mobile application plans</text>
+    </g>
+
+    <!-- Client 3: Web Dashboard -->
+    <g transform="translate(900, 50)">
+      <rect width="400" height="130" rx="10" fill="#0f172a" stroke="#334155" />
+      <text x="16" y="24" font-family="sans-serif" font-size="13" font-weight="700" fill="#38bdf8">💻 Responsive Web App (React 19 / Vite / Tailwind)</text>
+      <text x="16" y="44" font-family="sans-serif" font-size="10.5" fill="#94a3b8">• CSC / Setu Kendra desktop terminal &amp; tablet view</text>
+      <text x="16" y="60" font-family="sans-serif" font-size="10.5" fill="#94a3b8">• 8 comprehensive functional tabs (Schemes, Docs, Tools, AI)</text>
+      <text x="16" y="76" font-family="sans-serif" font-size="10.5" fill="#94a3b8">• Web Speech API voice synthesis (mr-IN, hi-IN, en-IN)</text>
+      <text x="16" y="92" font-family="sans-serif" font-size="10.5" fill="#94a3b8">• Full Supabase Auth session &amp; live REST client</text>
+      <text x="16" y="112" font-family="sans-serif" font-size="10" font-weight="700" fill="#22c55e">✓ 100% TypeScript typed contract verified</text>
+    </g>
+  </g>
+
+  <!-- Flow Connector: Clients to API -->
+  <g stroke="#38bdf8" stroke-width="2" stroke-dasharray="4 4" fill="none">
+    <line x1="260" y1="305" x2="260" y2="340" />
+    <line x1="660" y1="305" x2="660" y2="340" />
+    <line x1="1100" y1="305" x2="1100" y2="340" />
+    <line x1="260" y1="340" x2="1100" y2="340" />
+    <line x1="720" y1="340" x2="720" y2="365" />
+  </g>
+  <text x="720" y="333" font-family="sans-serif" font-size="11" font-weight="700" fill="#38bdf8" text-anchor="middle">HTTPS REST API / JSON CONTRACTS (Bearer JWT Authorization)</text>
+
+  <!-- ==================== TIER 2: SHARED BACKEND SERVICES ==================== -->
+  <g transform="translate(60, 370)" filter="url(#cardShadow)">
+    <rect width="1320" height="260" rx="14" fill="#1e293b" stroke="#10b981" stroke-width="1.5" />
+    <rect width="1320" height="38" rx="14" fill="url(#apiGrad)" />
+    <rect y="28" width="1320" height="10" fill="url(#apiGrad)" />
+    <text x="25" y="25" font-family="sans-serif" font-size="14" font-weight="800" fill="#ffffff">TIER 2: SHARED FASTAPI ENGINE &amp; SERVICES (Separation of Deterministic Rules &amp; LLM)</text>
+
+    <!-- Module A: Deterministic Evaluator -->
+    <g transform="translate(20, 50)">
+      <rect width="310" height="195" rx="10" fill="#0f172a" stroke="#059669" />
+      <text x="14" y="22" font-family="sans-serif" font-size="12" font-weight="700" fill="#34d399">🎯 Deterministic Scheme Evaluator</text>
+      <text x="14" y="40" font-family="sans-serif" font-size="10" fill="#6ee7b7">services/schemes/evaluator.py</text>
+      <text x="14" y="60" font-family="sans-serif" font-size="10" fill="#94a3b8">• Rule-based mathematical scoring</text>
+      <text x="14" y="76" font-family="sans-serif" font-size="10" fill="#94a3b8">• 15% to 50% subsidy rate calculations</text>
+      <text x="14" y="92" font-family="sans-serif" font-size="10" fill="#94a3b8">• Maharashtra Cluster Boost (+15 pts)</text>
+      <text x="14" y="108" font-family="sans-serif" font-size="10" fill="#94a3b8">• 128 normalized Maharashtra clusters</text>
+      <text x="14" y="124" font-family="sans-serif" font-size="10" fill="#94a3b8">• Disqualification threshold &lt; 50</text>
+      <rect x="14" y="145" width="280" height="36" rx="6" fill="#064e3b" />
+      <text x="24" y="167" font-family="sans-serif" font-size="9.5" font-weight="700" fill="#a7f3d0">🔒 Strict Invariant: Zero LLM hallucinations</text>
+    </g>
+
+    <!-- Module B: Tailored Document Engine -->
+    <g transform="translate(345, 50)">
+      <rect width="310" height="195" rx="10" fill="#0f172a" stroke="#059669" />
+      <text x="14" y="22" font-family="sans-serif" font-size="12" font-weight="700" fill="#34d399">📋 Document Checklist Engine</text>
+      <text x="14" y="40" font-family="sans-serif" font-size="10" fill="#6ee7b7">services/documents/checklist_engine.py</text>
+      <text x="14" y="60" font-family="sans-serif" font-size="10" fill="#94a3b8">• Tailored per scheme &amp; enterprise type</text>
+      <text x="14" y="76" font-family="sans-serif" font-size="10" fill="#94a3b8">• Direct links to official issuing portals</text>
+      <text x="14" y="92" font-family="sans-serif" font-size="10" fill="#94a3b8">• Zero fee disclosure (Mahabhulekh, Udyam)</text>
+      <text x="14" y="108" font-family="sans-serif" font-size="10" fill="#94a3b8">• Intermediary bypass: Saves ₹2,000+ fees</text>
+      <text x="14" y="124" font-family="sans-serif" font-size="10" fill="#94a3b8">• DPR (Detailed Project Report) drafting</text>
+      <rect x="14" y="145" width="280" height="36" rx="6" fill="#064e3b" />
+      <text x="24" y="167" font-family="sans-serif" font-size="9.5" font-weight="700" fill="#a7f3d0">💡 7/7 Essential Rural Maharashtra Checklist</text>
+    </g>
+
+    <!-- Module C: Multilingual AI Assistant -->
+    <g transform="translate(670, 50)">
+      <rect width="310" height="195" rx="10" fill="#0f172a" stroke="#059669" />
+      <text x="14" y="22" font-family="sans-serif" font-size="12" font-weight="700" fill="#34d399">🤖 Multilingual Rural Assistant</text>
+      <text x="14" y="40" font-family="sans-serif" font-size="10" fill="#6ee7b7">services/ai/assistant_llm.py &amp; extractor.py</text>
+      <text x="14" y="60" font-family="sans-serif" font-size="10" fill="#94a3b8">• Regex &amp; NLP entity extraction</text>
+      <text x="14" y="76" font-family="sans-serif" font-size="10" fill="#94a3b8">• Marathi inflections (e.g. कोल्हापुरात ➔ Kolhapur)</text>
+      <text x="14" y="92" font-family="sans-serif" font-size="10" fill="#94a3b8">• Grounded conversational guidance (mr/hi/en)</text>
+      <text x="14" y="108" font-family="sans-serif" font-size="10" fill="#94a3b8">• Explicit error propagation (No silent pass)</text>
+      <text x="14" y="124" font-family="sans-serif" font-size="10" fill="#94a3b8">• Syncs extracted entities to Supabase profile</text>
+      <rect x="14" y="145" width="280" height="36" rx="6" fill="#064e3b" />
+      <text x="24" y="167" font-family="sans-serif" font-size="9.5" font-weight="700" fill="#a7f3d0">🎙️ Full Devanagari Voice Support</text>
+    </g>
+
+    <!-- Module D: Student 2 & 3 Integration Adapters -->
+    <g transform="translate(995, 50)">
+      <rect width="305" height="195" rx="10" fill="#0f172a" stroke="#d97706" />
+      <text x="14" y="22" font-family="sans-serif" font-size="12" font-weight="700" fill="#fbbf24">🤝 Lab Partner Contract Adapters</text>
+      <text x="14" y="40" font-family="sans-serif" font-size="10" fill="#fde68a">services/integrations/</text>
+      <text x="14" y="60" font-family="sans-serif" font-size="10" fill="#94a3b8">• Student 2: Rural Logistics Planner (Shivam)</text>
+      <text x="24" y="76" font-family="sans-serif" font-size="9" fill="#cbd5e1">Route optimization, cargo consolidation, quotes</text>
+      <text x="14" y="96" font-family="sans-serif" font-size="10" fill="#94a3b8">• Student 3: Business Dashboard (Shruti)</text>
+      <text x="24" y="112" font-family="sans-serif" font-size="9" fill="#cbd5e1">Revenue growth projection, cash flow tracking</text>
+      <rect x="14" y="145" width="275" height="36" rx="6" fill="#78350f" />
+      <text x="24" y="167" font-family="sans-serif" font-size="9.5" font-weight="700" fill="#fef3c7">📦 Pure API Adapter (No Codebase Bloat)</text>
+    </g>
+  </g>
+
+  <!-- Flow Connector: API to Database -->
+  <g stroke="#10b981" stroke-width="2" stroke-dasharray="4 4" fill="none">
+    <line x1="720" y1="630" x2="720" y2="675" />
+  </g>
+  <text x="720" y="655" font-family="sans-serif" font-size="11" font-weight="700" fill="#34d399" text-anchor="middle">ASYNC SUPABASE POSTGRESQL CLIENT (RLS Enforced)</text>
+
+  <!-- ==================== TIER 1: DATA PERSISTENCE & DATASETS ==================== -->
+  <g transform="translate(60, 680)" filter="url(#cardShadow)">
+    <rect width="1320" height="230" rx="14" fill="#1e293b" stroke="#8b5cf6" stroke-width="1.5" />
+    <rect width="1320" height="38" rx="14" fill="url(#dbGrad)" />
+    <rect y="28" width="1320" height="10" fill="url(#dbGrad)" />
+    <text x="25" y="25" font-family="sans-serif" font-size="14" font-weight="800" fill="#ffffff">TIER 1: CANONICAL DATABASE &amp; VERIFIED DATASET PIPELINES</text>
+
+    <!-- DB Tables -->
+    <g transform="translate(20, 50)">
+      <rect width="420" height="165" rx="10" fill="#0f172a" stroke="#6d28d9" />
+      <text x="16" y="24" font-family="sans-serif" font-size="12" font-weight="700" fill="#c084fc">🗄️ Supabase PostgreSQL Canonical Tables</text>
+      <text x="16" y="44" font-family="monospace" font-size="9.5" fill="#e9d5ff">• schemes (CMEGP, MUDRA, PMSVANidhi, MahaDBT, PMEGP)</text>
+      <text x="16" y="60" font-family="monospace" font-size="9.5" fill="#e9d5ff">• marketplaces (ONDC, GeM, Amazon Saheli, AgriBazaar)</text>
+      <text x="16" y="76" font-family="monospace" font-size="9.5" fill="#e9d5ff">• digital_tools (Tally, Khatabook, Vyapar, GooglePay)</text>
+      <text x="16" y="92" font-family="monospace" font-size="9.5" fill="#e9d5ff">• portal_guides (Aaple Sarkar, MahaDBT, Udyam, PMEGP)</text>
+      <text x="16" y="108" font-family="monospace" font-size="9.5" fill="#e9d5ff">• district_indicators (Maharashtra District Profiles)</text>
+      <text x="16" y="124" font-family="monospace" font-size="9.5" fill="#e9d5ff">• profiles &amp; business_profiles (Encrypted entrepreneur data)</text>
+      <text x="16" y="140" font-family="monospace" font-size="9.5" fill="#e9d5ff">• application_plans (Cross-client synced application states)</text>
+    </g>
+
+    <!-- Cluster Dataset -->
+    <g transform="translate(460, 50)">
+      <rect width="400" height="165" rx="10" fill="#0f172a" stroke="#6d28d9" />
+      <text x="16" y="24" font-family="sans-serif" font-size="12" font-weight="700" fill="#c084fc">🏭 Maharashtra Industrial Clusters (128 Clusters)</text>
+      <text x="16" y="44" font-family="sans-serif" font-size="10.5" fill="#94a3b8">• Source: data/data.json &amp; MSME Cluster Survey</text>
+      <text x="16" y="60" font-family="sans-serif" font-size="10.5" fill="#94a3b8">• Normalized in data/normalized_clusters.json</text>
+      <text x="16" y="76" font-family="sans-serif" font-size="10.5" fill="#94a3b8">• Ingested via scripts/ingest_cluster_indicators.py</text>
+      <text x="16" y="92" font-family="sans-serif" font-size="10.5" fill="#94a3b8">• Covers Kolhapur Jaggery/Foundry, Sangli Turmeric/Grapes,</text>
+      <text x="16" y="108" font-family="sans-serif" font-size="10.5" fill="#94a3b8">  Nashik Agro/Wine, Solapur Textile/Chaddar, etc.</text>
+      <text x="16" y="135" font-family="sans-serif" font-size="10" font-weight="700" fill="#38bdf8">⚡ Direct input into deterministic matching engine</text>
+    </g>
+
+    <!-- PDF Staging Pipeline -->
+    <g transform="translate(880, 50)">
+      <rect width="420" height="165" rx="10" fill="#0f172a" stroke="#6d28d9" />
+      <text x="16" y="24" font-family="sans-serif" font-size="12" font-weight="700" fill="#c084fc">📄 MyScheme PDF Verification Pipeline</text>
+      <text x="16" y="44" font-family="sans-serif" font-size="10.5" fill="#94a3b8">• 2,877 Maharashtra &amp; Central Govt Scheme PDFs staged</text>
+      <text x="16" y="60" font-family="sans-serif" font-size="10.5" fill="#94a3b8">• Automated manifest, deduplication &amp; section extraction</text>
+      <text x="16" y="76" font-family="sans-serif" font-size="10.5" fill="#94a3b8">• Extracts: Eligibility, Benefits, Document Checklist, Steps</text>
+      <text x="16" y="92" font-family="sans-serif" font-size="10.5" fill="#94a3b8">• Staged JSONs: data/staging/myscheme/sections/</text>
+      <text x="16" y="112" font-family="sans-serif" font-size="10" font-weight="700" fill="#e2e8f0">• Pipeline script: scripts/pdf_staging_pipeline.py</text>
+      <text x="16" y="135" font-family="sans-serif" font-size="10" font-weight="700" fill="#22c55e">✓ Zero manual scraping required for verified schemes</text>
+    </g>
+  </g>
+</svg>
