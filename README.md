@@ -17,6 +17,19 @@
 
 ---
 
+## 🌐 Live Deployments
+
+| Component | Live URL |
+|---|---|
+| Web application | https://vyapar-marg.vercel.app/ |
+| FastAPI backend | https://vyaparmarg.onrender.com/ |
+| API health check | https://vyaparmarg.onrender.com/api/v1/health |
+| API documentation | https://vyaparmarg.onrender.com/docs |
+
+The Render service is hosted on the free tier and may take 30–60 seconds to respond after inactivity.
+
+---
+
 ## 📖 Canonical & Detailed Specifications
 * **Complete User Flow & System Specification**: [`docs/COMPLETE_USER_FLOW_AND_SYSTEM_SPECIFICATION.md`](docs/COMPLETE_USER_FLOW_AND_SYSTEM_SPECIFICATION.md) — *Detailed 5-stage user flow, 3-Tier Seed-to-Client pipeline, API contracts, and complete system architecture.*
 * **Canonical Specification**: [`docs/PROJECT_CANONICAL_SPEC.md`](docs/PROJECT_CANONICAL_SPEC.md) — *Locked problem statement, team roles, module boundaries, and security invariants.*
@@ -139,7 +152,7 @@ VyaparMarg/
 ### 2. Environment Setup
 ```bash
 # Clone the repository
-git clone https://github.com/RangeshGupta/VyaparMarg.git
+git clone https://github.com/rangeshsha-Rookie/VyaparMarg.git
 cd VyaparMarg
 
 # Activate Python Virtual Environment

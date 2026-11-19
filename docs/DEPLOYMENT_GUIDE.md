@@ -2,6 +2,13 @@
 
 VyaparMarg uses one shared backend and separate public delivery targets.
 
+## Live deployment
+
+- Web application: https://vyapar-marg.vercel.app/
+- FastAPI backend: https://vyaparmarg.onrender.com/
+- API health: https://vyaparmarg.onrender.com/api/v1/health
+- API documentation: https://vyaparmarg.onrender.com/docs
+
 | Component | Recommended host | Output |
 |---|---|---|
 | Supabase database/auth | Supabase | Hosted PostgreSQL, Auth, REST |
@@ -28,8 +35,8 @@ In Render:
 2. Select Docker as the runtime.
 3. Set `SUPABASE_URL` to the active project URL.
 4. Set `SUPABASE_PUBLISHABLE_KEY` or `SUPABASE_ANON_KEY`.
-5. Set `CORS_ALLOWED_ORIGINS` to the exact Vercel origin, for example
-   `https://vyaparmarg.vercel.app`.
+5. Set `CORS_ALLOWED_ORIGINS` to the exact Vercel origin:
+   `https://vyapar-marg.vercel.app`.
 6. Do not set `SUPABASE_SERVICE_ROLE_KEY` unless a server-only worker needs it.
 7. Deploy and verify `https://YOUR-API-ON-RENDER/api/v1/health`.
 
@@ -40,7 +47,7 @@ Deploy `apps/mobile` as the Vercel project root.
 Set build environment variables:
 
 ```text
-VITE_API_BASE_URL=https://YOUR-API-ON-RENDER/api/v1
+VITE_API_BASE_URL=https://vyaparmarg.onrender.com/api/v1
 VITE_SUPABASE_URL=https://YOUR-PROJECT.supabase.co
 VITE_SUPABASE_PUBLISHABLE_KEY=YOUR-PUBLISHABLE-KEY
 ```
